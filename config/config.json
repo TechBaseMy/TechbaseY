@@ -1,0 +1,49 @@
+{
+  "development": {
+    "username": "qkm+dWM8dxjnOZc+EUohnw==",
+    "password": "xzwOE61w2JdSkJeyoeETiQ==",
+    "database": "OccgFtTx2SdjEm7p31ou7T6s0LczmCbs2gElysHAtBU=",
+    "host": "pDbWtw8CZWcQdUBHVefQoQ==",
+    "dialect": "srKqtIU6pLNLVXyFU1WRYg==",
+    "port": "U83dwTlFrc50JH1rZa3GaQ==",
+    "monoEndpoint": "swTmJKupmFzM98tyKcMKm39SyJcxhP4F71RMDvRdc0Y="
+  },
+  "production": {
+    "username": "dUyPXk3+tLOH3if8IFnC2Q==",
+    "password": "hvf9UvEJC5+d0BUBfLyaKQ==",
+    "database": "tU48cca9TG/7d8qif39DTA==",
+    "host": "BUq2X8vKZoIfzD9Ry7rcaA==",
+    "dialect": "xfAw2Lic5fjChdGSqgfM/A==",
+    "port": "kliTGdGT3yjVJjPpsq8rVw==",
+    "monoEndpoint": "QyungpcHHpPLIIRZI/byOfBAkf5pECUFd2Z3BGsoBge2xpyHO2dBrMYq/hUjRADD"
+  },
+  "uat": {
+    "username": "xeC0oIq4NKxKKkeBehGDZg==",
+    "password": "29SGK8gaGenad3ua3ImzJA==",
+    "database": "CPVhnmYrkSagC7z4jzxi4w==",
+    "host": "S+ELoktiUotVqxRt4RqLTQ==",
+    "dialect": "xfAw2Lic5fjChdGSqgfM/A==",
+    "port": "f3fdpIA8I0mDuwhRPhWxdw==",
+    "monoEndpoint": "https://localhost:59263/",
+    "oss": {
+      "region": "K5Ti1MU7IZa0kkbs8WHZ42GHvP26Gpe6g/9vPoDP/bk=",
+      "accessKeyId": "hpeLJ2Lin8nrBaX/cLOs10PI2NfjEpIC6TOlSkdYGgc=",
+      "accessKeySecret": "f0O5iLf71m7/DwJ/BcvuCiLf7FruaS2eg8lOdRRvj/U=",
+      "bucket": "hGgfQgq0D10xTtPLeVuuDA=="
+    }
+  },
+  "smtp": {
+    "server": "V/9pcaG4j+yflBzMkBgLYTKVAJBqV3nMwFJHFJ791Tk=",
+    "port": 26,
+    "enableSSL": false,
+    "username": "LURbp9eQkMQDlZ7h/Cb1FBDN8rkFhEp0oUq3Uy1AYiE=",
+    "password": "b+StD6+0xBQfK25aPBpRAA=="
+  },
+  "sms": {
+    "company": "QwEFNXa0ktHVhVjqWWcvRQ==",
+    "username": "C+zOKGmSp8mjRoBy/TAI6w==",
+    "password": "Vz++HKvKGMyePV6/Y+Td2g==",
+    "url": "ym9HeTF6t8f5yvjRY25FTSy1dA3yWAfl1MQFxDYjpV641gnS+otNLzsdfRtsk49l"
+  },
+  "key": "♪♫!τ®ÜtỄchẞĄṥễ 2021.04/05/16:00-Pm↔"
+}

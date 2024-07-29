@@ -1,0 +1,53 @@
+Arguments: 
+  /usr/local/bin/node /opt/homebrew/bin/yarn install
+
+PATH: 
+  /Users/shihao/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/shihao/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.14.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@sentry%2fnode: ETIMEDOUT
+      at Timeout._onTimeout (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141550:19)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+npm manifest: 
+  {
+    "name": "testing-pc",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "NODE_ENV=development nodemon app.js",
+      "start:staging": "NODE_ENV=development node app.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@sentry/node": "^7.91.0",
+      "body-parser": "^1.20.2",
+      "cors": "^2.8.5",
+      "express": "^4.18.2",
+      "fs": "^0.0.1-security",
+      "path": "^0.12.7",
+      "process": "^0.11.10",
+      "sequelize": "^6.32.1",
+      "tedious": "^16.1.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

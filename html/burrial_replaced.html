@@ -1,0 +1,758 @@
+<!DOCTYPE  html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+      <title>spPO</title>
+      <style type="text/css"> * {margin:0; padding:0; text-indent:0; }
+         body{
+            margin:20px;
+            position:static;
+
+         }
+         p { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; margin:0pt; }
+         .s1 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+         .s2 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .a, a { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         h1 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+         .s3 { color: black; font-family:"Yu Gothic UI", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+         .s4 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .s5 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .s6 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .s7 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7.5pt; }
+         .s8 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .s9 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; vertical-align: 3pt; }
+         .s10 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; vertical-align: 3pt; }
+         .s11 { color: black; font-family:"Yu Gothic UI", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7.5pt; }
+         .s12 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; vertical-align: -3pt; }
+         .s13 { color: black; font-family:"Yu Gothic UI", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7.5pt; }
+         h2 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 7.5pt; }
+         .s14 { color: #FFF; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .s15 { color: #FFF; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         .s16 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; vertical-align: -1pt; }
+         .s17 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 7.5pt; }
+         .s18 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 7.5pt; }
+         .s19 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; }
+         .s20 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; }
+         .s21 { color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; }
+         .s22 { color: black; font-family:Arial, sans-serif; font-style: italic; font-weight: normal; text-decoration: none; font-size: 7pt; }
+         .s23 { color: black; font-family:PMingLiU, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         li {display: block; }
+         #l1 {padding-left: 0pt;counter-reset: c1 1; }
+         #l1> li>*:first-child:before {counter-increment: c1; content: counter(c1, decimal)". "; color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; }
+         #l1> li:first-child>*:first-child:before {counter-increment: c1 0;  }
+         li {display: block; }
+         #l2 {padding-left: 0pt;counter-reset: d1 1; }
+         #l2> li>*:first-child:before {counter-increment: d1; content: counter(d1, decimal)". "; color: black; font-family:"Yu Gothic", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; }
+         #l2> li:first-child>*:first-child:before {counter-increment: d1 0;  }
+         li {display: block; }
+         #l3 {padding-left: 0pt;counter-reset: e1 1; }
+         #l3> li>*:first-child:before {counter-increment: e1; content: counter(e1, decimal)". "; color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         #l3> li:first-child>*:first-child:before {counter-increment: e1 0;  }
+         li {display: block; }
+         #l4 {padding-left: 0pt;counter-reset: f1 1; }
+         #l4> li>*:first-child:before {counter-increment: f1; content: counter(f1, decimal)") "; color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7.5pt; }
+         #l4> li:first-child>*:first-child:before {counter-increment: f1 0;  }
+         table, tbody {vertical-align: top; overflow: visible; }
+         form{
+            font-size: 9px;
+         }
+         input[type=checkbox] {
+            width: 19px; /* Set your desired width */
+            height: 8px; /* Set your desired height */
+            margin: 0;
+           
+        }
+         .spacing{
+            margin-bottom: 6px;
+         }
+         .table-custom {
+            border-collapse: collapse;
+            margin: 5px;
+        }
+        
+        .textboxx{
+            margin:60px;
+        }
+        .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .place-checkbox-container{
+         padding-left:20px;
+        }
+        .table-form {
+        border-radius: 5px;
+        border: 0.2px solid black;
+        width: 90px;
+        height: 60px;
+        overflow: hidden; /* Ensures the child elements follow the parent's border radius */
+        }
+        .table-details {
+            border:solid black;
+            background-color: white;
+            font-size: 11px;
+            padding-bottom: 12px;
+            overflow: hidden; /* Ensures the child elements follow the parent's border radius */
+            white-space: nowrap; 
+        }
+        .table-header {
+            text-align: center;
+            font-size: 11px;
+            color: #FFF;
+            background-color: #000000;
+            padding: 6px; /* Adjust padding as needed */
+            overflow: hidden; /* Ensures the child elements follow the parent's border radius */
+            white-space: nowrap; 
+        }
+        .container-section3 {
+            display: flex;
+            justify-content: left;
+            padding-left:30px;
+            padding-top:10px;
+        } 
+        .size-container{
+            align-items: left;
+        }
+        .size-table{
+            border:2px solid black;
+
+        }
+        .size-header{
+            border:2px solid black;
+            font-size:12px;
+            padding-right:30px;
+        }
+        .size-body{
+            border:2px solid black;
+            padding-right:170px;
+        }
+    
+               /* Container for the representative name */
+         .representative-name-container {
+            display: flex;
+            align-items: center;
+         }
+
+         /* Text part of the representative name */
+         .representative-name {
+            flex: 1;
+            font-size: 16px; /* Adjust the font size as needed */
+            font-weight: bold; /* Make the text bold */
+         }
+
+         /* Underline part */
+         .underline {
+            flex: 2;
+            border-bottom: 2px solid black; /* Adjust the thickness and color of the line as needed */
+            margin-left: 10px; /* Add some space between the text and the underline */
+         }
+
+         .payment-checkbox-container{
+            padding-left: 0px;
+         }
+         .smaller-textbox {
+            margin:3px;
+            margin-left: 5px;
+            border-top:1.5px solid #CBCBCB;
+            border-left:1.5px solid #CBCBCB;
+            width: 80px;      /* Width of the box */
+            height: 15px;     /* Height of the box */
+            background-color: #EAEAEA; /* Background color */
+            font-size:8px;
+            text-align: left;
+         }
+         .small-textbox {
+            margin:3px;
+            margin-left: 5px;
+            border-top:1.5px solid #CBCBCB;
+            border-left:1.5px solid #CBCBCB;
+            width: 100px;      /* Width of the box */
+            height: 15px;     /* Height of the box */
+            background-color: #EAEAEA; /* Background color */
+            font-size:8px;
+            text-align: left;
+         }
+         .big-textbox{
+            margin:3px;
+            margin-left: 5px;
+            border-top:1.5px solid #CBCBCB;
+            border-left:1.5px solid #CBCBCB;
+            width: 200px;      /* Width of the box */
+            height: 50px;     /* Height of the box */
+            background-color: #EAEAEA; /* Background color */
+            font-size:8px;
+            text-align: center;
+         }
+       
+
+      </style>
+   </head>
+   <body>
+         <div class="container" style="margin-left: -10pt;" >
+                <div class="col-6">
+                   <div class="container">
+                      <div class = "row">
+                         <div class ="col-2">
+                            <span>
+                               <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                     <td><img width="53" height="48" src="data:image/png;base64,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"/></td>
+                                  </tr>
+                               </table>
+                            </span>
+                         </div>
+                         <div class ="col-3">
+                            <span>
+                               <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                     <td><img width="300" height="44" src="data:image/png;base64,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"/></td>
+                                    </tr>
+                               </table>
+                            </span>
+                         </div>
+                      </div>
+                      <p style="font-size:20px; text-align: right; margin-left:60px; margin-top: 25px;">NO.:Btest</p>
+                   </div>
+                </div>
+                
+                <div class="col-6">
+                    
+                    <p class="mb-1">No. 57&amp;57A-59&amp;59A, Jalan Masjid, 30300 Ipoh, Perak.</p>
+                    <p class="mb-1">Toll Free 1-800-88-6311</p>
+                    <p class="mb-1">
+                        <img width="17" height="12" src="data:image/png;base64,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"/><span> enquiry@papan-memorial.com</span>
+                    </p>
+                    <p class="mb-1">
+                     <img width="18" height="20" src="data:image/png;base64,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"/><span> facebook.com/PapanMemorial</span>
+                 </p>
+                    <p class="mb-1">
+                        <img width="18" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFcAAABSCAYAAAAhBUjfAAAAAXNSR0IArs4c6QAAIABJREFUeF7tnXdXVFmzxgsD6ijmHFBBMWcFBYyICoo5IeaE2fkK7ye4MyYwYcCEYVTMIuacE+Y4Zh1zDui9v2p207SdAJl7/7h7Ldeage5z9qlTu+qppwJeP378+CH/8uKWnz59kufPn8u9e/fk2rVrcjntkty6dUseP3wob9+8kU+fP8u3b99EPNiel5eXFChQQAoVLiwlSpaUylWqiJ+fn9SrX18C6gRItWrVpHTp0lKwYEHhs//S+o/XvylchPrmzRu5evWqHDlyRI4ePiJ3bt2S9+/eyZfPnyX9+/df9tz58ueXQoUKSfHixSWgbh0JCQ2VwKAg8ff3l99+++2X3cfFhf4d4SLUly9fyvFjxyU5eaOcOn5CXr96Jd+/f5d/4+Cgrfnz55fSZcpIcGioRPXqKU2bNhUfH5+81OS8FS7HmqN/4sQJWb/uLzlx7Jh8/PAh21pjjrLti3D0M08uzPeK+fhIm9AQ6dO3rwq5VKlSKvxfvPJGuAj1xYsXcurUKdmcnCzHjh5TTbW3nzyot7e3as+XL19Uk22XEUTFypXl3du38ujBA/01P69ctYoUKVJEHj18KB/ef/jpBOTLl08Kenvrz79++eLw92hyaPt2EtWzpzRq1EhKlCghfO8XrV8rXB7kw4cPcvnyZUnesFF2p6bKs6dP5Xt6epb94nxKli4l1WvUlHLlysmd27fl+tWrkm7zufwFCghCjYiMUMe0JXmT7N61S6+DlnXp1k06hXeW06dOSWrKLr3PD5uXwz3qN2wg1apXlwf378vdO3fkzavXWe7Btfhc5apVpWtEN+kRFaU2GVv9C9avFS7amrJzp6xZlSRXLl+Wz58/Z9ljvnz5pULFCtI6JFg6h4fr79auXi2HDx6Uz58yP1ugYAGpW7++xAwdqp978OCBzJ4xU1J27LAKt3tUlEycPFlKlCwhWzZvlpXLl8udW7ezaH9Rn2ISEdldevXpLf/8849s37pNTp04IS+eP8/yOU4CSKNp8+YSM2yotG3bVooWLZpb+f4a4XKcHz16JMuXLZO1Savl5YsXdkLNJ2XLlZOOncNkwMCBUqdOHblx44YsnD9fdu3YqbDMLOBSm5AQGRs7Xlq1aqWadfnSZZn5558/CXfy1Kni5++nJuXAgQOyYO48OXPqVBbtLFa8uPTt309GjBwpFSpUkPPnzsvKlSvk4P798vqlxanaroqVKsngmCG6T05VLqBb7oSLGfj48aOcP3dOli5ZIvv27FVIZRbHt1Tp0hLYOkj69u+vwuLI3b59W5YsXiybNyarLbUYUpFiPsWlc3hnFUT9Bg2s9s+dcPk6Qjp27JgkLFgox48elQ/v31v3gW3tO6C/noTKlSvL+/fv5cD+/bJ2zRo5d/ac4mpbk4LD6xoZoZ8PCAjIqZnIuXANZj18+LAeSY7bl89frA9U5LffJKBOHenVu7d07hIu5cuXV1v58OFD1fB1q9fI83/+yRCsl4L/bhERMmzEcKldu3YWx+KJcLkQGnz+/HlZlpgo+3bvsb444wCHDh8u/fr3V3SA071//75s37ZNtmzaLLdu3syiGGDh0HbtJGb4MGnWrJk6z2yunAuXt4/DWrp4iVy8cEG+ff1q9eRlypaVTp3DpP/AgVK/fn3rm3/79q1qy+KFCerlDbQCb0ZG9ZBhI0ZIrVq1foJFzoU7Rfz8/bM8M0K7cOGCLFq4UPak7pZPHz9a9pUvn9QKqC1jxo2TyMhIq7AwSUDFpJWr5Ojhw/Lm9WvrvrwLFZJWQYEyctQoaRMcnF0NzplwcVTbt29XG3ftyhWr3QLGVKlaVQZGD1YMic0y0Aat2rljh8ydEydXr1zJfABvb7XF4ydMkIYNGzqEQp5qrpEyAj529KjEz4lTE2HsKhrcMrCVTJg8WYKDg9Wes0Apd+/eldVJSZK8foM8e/pMRCysAKetcdOmMi52vLTv0EGho4cr+8IFau3YvkOd0dXLl7M6g8qVZNSYMeoM0Eaz2PzFCxclbvZs2ZOaan1Yi/MKlvETJ6o9doYxsytcY4M5WXGz50jahQtWJ1eocCEBaYyLjVX+wfaeRJHLliZK4pIlWZ2yl5c0b9lCxsfGSmjbtp5qcPaEi/NCI4zTsMWlPJDazchIiY4ZonaTt8zRB0kkLl2qEE2DiQx8Wb9hQxk/cYKEhYVZtciRVmTHLNh+nyO/KTlZFeH2zVv6UtFeEAG2FCXA/vIzPnvx4kUVLgpg6xC5JgFJ+44dZPSYMdKkaVNPNNhz4X79+lVvnoAt25Uqn23gk3kg+KaiPj7SOjhYBkdHS6vAVvqr7du2qw00JoSHwXwMHzlS+g3or+SKq5UTzeV6vFjw7Yrly2XV8uXqQCHZMActWrVU+xsSEqIMHFBu1cqVcvbUaaudtt8TKCKyRw8ZMWqkBhtuQmbPhMsmAfJLFi2Sv9auU6PPgnlCO4nAsKlm8bPqNWtKn359pW7dupK8YYMCeINnfYoXl979+irk8vX1dYslc6q5xp6iFGgvGvnpowVTFy1WTOEZCIXTuOGvv+Th/QcWmpNFYFHIW7wka2gOXh8ybKgMiYmRMmXKuNIJz4SLOcDYz4+fK08eP7YIFu9bu7Z6ecgZMKtt8PBDfmjU41OsmEZf7969s5oDcG/sxIkS1Lq1u7ev38mNcPk+Dnjb1q0yN36u3Lh2zcpxlCxVSjle9s3JzAwYMB0VpVffPpI/fwEVPCG0YYJr+PnJxCmTJSoqSr/vZLkXLjfdv2+/xM+ZI+fOnLF4+Qy7xbEeOGigvu0N69dL0qokuXf3rhWWObppufLlZcToURI9ZIhbc2C+n1vhch3Mw6KFCbJi2bLMwMXBBrGttevUkSExQ1SrebbEpYn6vZfPn1sVK7RdW5kwaZI0a97cmb9wLVwcwPXr12VuXLxs27LFKjQc16DoaBk+coSGlCy0++iRI7JyxQo5efy4vHv7ziFXixNDuB07dlThekL15dTmGtkhIJDA5k2bZdmSpUri2CckOIk8V0jbtjI4erA0bdbMigru3LmjThzzBrHP+q1oUenbr6+MGjtWMx0OwmTXwmVDmAOgyZNHFnNQuHBhZaPGjh+vuNT2otjdv//+WzZu2CCbNiZroGDPiGGPy1esKK0CA6VjWCel+ojeXOHHnGou+wGpwJztTt0tZ0+fVqfGabRdODjfGjWkd98+yowRItu+dJTs6NGjqmRw0lCYvB3/WrVk9NgxEtm9uxQrVsz+HDgXLhs4efKkzIuPlyOHDkn6t3S1s3Xq1pXYSROlS9euDu0NZuPZs2fq/AiL377J4A7sbs3mvQsXkkqVK0uLli2lbbt2KmgCD8PxZtcsmNzckydPVKDwBxfOnRf+/8uXz/I93XEaqULFijJ0xHAZOGiQFZrZSwp8j9IkzF+gms+9vL0LSXi3rhpg1KtXzx6nOxauERAcwKrlK5SiY0GADBk6VIYOH+bUU/JdcmSA9x3btkm68b6u/GoG7gXqVKlWTZo1a6rHkkQj1B/ah83bv2ev1eaFd+0qg4ZEa+IRZ3n71i05ffq0XEpLk0cPHurxtcfhzrYAb4Dz4jQ6Qy88F+ZhUUKCbNqw0Wq34YtHjh4tffr2yRI4/Q/ecCxc1doTJ2Re/FyL1qanK4gObN1axo0fL0Gtg5yCfmwvnnnBvPlyPcMz892qvr5qUh4/eqQslOEinD2wySQQ3/PfcAS22BqBFC5SRB0OTBwmwF0+jn1gV8uVLyfv376Thw8s0IvrE4GNmzBBQkNDnZoo7pGamqqo6dLFi1a5EDjFTpygDJqNmXQsXGwtwBtb+/yZhbnCy8MqEX0R1ThaPNzjx4/17RKNGTrRREQdOnaUmzdvyr69e+XsmTNqx8mpuROKG6V3+WsEhz2sWLmSNG/ZUtq1by8VK1ZUNmz1qlXy6sVL6/NBHA0eEu30+fggJmbxokWStGKlKgkLxSGcxsGhQBnLsXAvpV2S2TNnSmpKir4dNhjUpo1iu6CgIKccAJ89c+aM2ukDe/epVpCugSyBmIEs4c3CqD19+lTpwcOHDsnF8+fl8cNHijjsyeucCBZ7jjcnfdOkSRNpHdxGnS/2HI3nHik7U3Sfl9PS9P/hmcHsCAlmzhlJzmfR3tkzZkjahYu6PRxiVK9eKp+aNWs6Fy4CWbN6tcTNmq3enkVERag4cvQol+kPhLNlyxZZMHeu3Lx+Q79LJNRvwAD1qlWqVMkiKzSWf9hM7Bk289iRo3Lj+nV59fKlxvefNfL7oZGS/SJQ0RSNdyG9Dz6hdp0AVQBsdnVfX/05y15YV65cUe+/c/t2NSv8vkmzZjJh8iRp3769S66Dkz1/7jw92ZgrnoHaiKnTpys2zrjXz5oLmY1gyW0haD7YrEUL/WJo21CXikQOjQzD8qVL5fUrS4iMg8JR9OvfzyPCGc3gJVE8Av+LM7tw/oKmeLBzRlDku7pGkLysJxXKV5BiPsUUN3MsPUnNvH79WkkaUI2JLMtXqKB7HRQ92GXhCMKEGZw1Y4aVGSQajRk2TMZPiDXOPqtweTDgy6wZMxUTquYVLapfGj1urLtYWu3pnNmzZeumzeqwMCctWrWSSVOnqEnIado6pzjXlSagODjeOTNn6UlhYRpAIJgwExw5uwYnbV5cvAYWJhHbtn17mTJ9mmYuvLy8sgqX4wn8AssZ+EUcPXnaVOnZs6db4Rw6dEhm/vGnpnxYxN29+vTRo1a9evWcmE/9Tm4jNGc3htAh8bk7xZKyR+PJoEyZNk0aNmrkcr8gBwIsaAETYFWvUUMRR6/evThBWYVLURwmYf26dWoSMNTtOnSQSVOmSJOmTVzeDGdGCocUeBZbPX6cpklyk6rOC83lYTBj8XFxGhJr1CWivILFdnZzaV70lB84IHNmzdaMMwlOnChoA/9Uvnz5TOFiR4BHoIT9e/epkfYp7iPRMTEKkvG0rhYRzIL58zX1Y0qWqlSrKqS/+/br5xGH4Oz6eaW54HlI/PjZc6x2FxwMIQNv4iokRz6khsDzG9evV8cGMsIPTJo8SWoHBGQKF65165YtMn8utJzFBiEcoAkZUxv85lAGQKvZs2Yp/jNRGRBs2u+/a3IvNyuvhMuedmzfLjP++FOJfBZBCxloKFFneN48C04RM7p00WLlLEwwwncDg4Iyhfvq1SsNMZcu5oPP9YMNGjXSyKNTWJgr3lLvRYUN9mvndktVDN/v3jNK7Re5qtysvBTuuXPnZNafM2Tfnj16WrG7VOiwb2yoq2XSSJxWwm++T5Jg9Nix0imsU6ZwgWCw9UAwCts4Em07tFfPSSWgO0+/b98+mflff8i5M2e1wAMNIKLj5RD/52bllc1lT2RYQAzr1qzRgAkBkSvjxJErc7XwS9jdeXFxcubUaf0+ZQWgq64R3SzC5YLwtpiEbZu3KLTAOEPBYZwhM1wtjPvmTZsUwt2+eVM/Cu7kxZANdmdS3Ak+LzWXEH3BvHnK14KvCUwIJqZNn66hsivMjNwunD+vHMze3btVbgQtAwYNyhQuwqEkCc+5d/cetZkYduoPho8YobG4q4VjgIsgdW7LRRAOknEw9QHuhJh9h/ZzUUh278HRXpywSENhwxX41fJXhNS9Rw+3e6fVAEdOmgtHTjBBErNT5zCL5iIcsgjc4MSx4/ItPV2JGjwmwilZsqTLPfPG8bqwRYStLJwhRwukkNuVl2aBo032ZM6sWfKPFoOIVK1WTXkCCltc5Mj0szhyiByoWV5OgYIFpXPXLhSQWIQLIN6/b5/G2iZPBumBYe4/oL9bjEqoir2mTAlIxqJ0COFGREbmVrZ5FkSwMY42XApOzeBzyHNQ0sDBg9yG7GBlatPAyoTRkEYhbUNJvmYKFxoQs3D+7DnNjhYvUUIaNm4sfn7+ki9/vp9yTrYS+/rlq9aLEfujCWwYmrFJ82aZJsUrk3rRQqGMHiJPmmvevH6j4TgemYUdJCPSuFlTtw9vmoHMfaz0ZsYPoIMovj57+oy1YIUiPJ6dTiCwq6mIN21PFjtsIZLI0Fy7dlWZPYgmfkfdRmBQoEW4WqK0Y4csnDdf8V5e8qu5VuP/4xfwyuclQcHB5AgtwoVfhcSAU4DE+H/h5vwN/iRcNHfbtm2SMH++XL967f+Fm3PZWs1CS2MWwGd79uxRCg3bYclseiv5TNl7PjeGEfAMiwZSMFqP3QJQUwSd28X+CC+tVegZRX/sz5039+Te8MZc31TFm5414Ki74AkYS3mXbdUONtcqXNACDg20cP7sWRUQhXKjxo7RynB3QYCihQULZNnSpfLl02f9Pg0j8LidOnXy5PlcfoasARjaUIM8cGSP7hr/18hMq+ToPuyVlDlsIAlLFvVgI0aNkgGDBnqElFavStJnN/wCPR1WhwbOPXjggAoX+oy3UaFSRa1CHDR4sPZnuVrwwEsWLZaEBQusRXrVfH1l6u+/a8o5t8shzu0ZpYxbbnkLnpUyLLIKTzPq4FAsOGgIK3cnw1KjsVhrNNBgAqYOnTpJSGiIxaGZxCJV3wf27dMYmUYRuAFqFNxxA2g+7BDUnSHZgWKQ7BRauDta7oSfl0EEJod0z9y4OCvtSPXNpCmT9dS6iy4p0KOsdt2atVorQfq+W/dIyK5MboHGPAiIlB07tQaAAg0Si6PGjP4psWgvDF7GurVrZfbMWfLw/n39tfKikydp+JyNUneHcs5LbgGkhEkDhpqCZ5oDYcXCOnd2qRiYFEwWnAxsIHUV+JrefftKWJfwTFYM4pcPWYjfT2pnqWqhH4xSHXcEBs198KJXLl3Sz1KwwYuhiITscW5WXmou4Su9E0krVlgLSyhxJbps3aaNy21jUo4fP65KSQc+5tUUKYZ37ZIpXEosiZFXJC7TGJnIhOprnAbV1+6qEenznfnHH3LowEHdUP4C+TWLAQHiLovhTvB5qbmcWNOdaWomONYIl9YDVwthahNNXLxmgfk+tW9UcYZ3sREuWHfd2nXKETy4d0+1r6a/v/KxVP65O9pkQ6EcyYaahrn2HTvK1N+na2FGblZeau7BAwdlxh9/qCNnYWMHDxmixA3Vl+4c+eqk1dqSwBAOZFavQQNNr7dt1y5Tcw3xGz+bhNtphVPgyJFjRmsnobu+BVIec+PjZUnCIitepEAD20WhRG6cWl5prtVXzJhphWGUPlFGAGnlLqlK3ZuWbiUlaTUnbQxt27eTiZMmSaPGjbMmKK9dvSazZs7U6kS0jzw+bUV03NBg4e6ILE9cpnjUtioSs0Kzcm46wfNKuEBIHBkQ0rB5wDBQjrukKsp35vRpiZsTp33E1GmQfcGZcdp9fX2zptYp0+FmlOnozby8lB2aNn2adPQgGNiVkqJOjforFsQxJacck7Jly+bYMuSVWcCJY29x4sbeEl1hygIDA13uF61P3pisPDCjZFhEpOak+/j4ZBUupoG+LXLx5gulypRWpzZ02DC32peWlqabpYCPzeIEGRaBU8uoQsmRgH+FcNkPZbGv37yRFi1aaAIAkj85OVmWJCToOAGUiQZwMG7VqlVd7hUelx4LIjMTljdu0kQmTZ0qHTp24Nl/rhVDQEQrqTtT1O6awRGEsrQ9uVqUj5KPIhwk5YGBr1U7QGInTVDS3J1TNNdGEGBt8+/SpUuyaMFCPX4s7HdYeLh6ZSoSuS7/iKZc2fbUXbtkxYoVUrt2gAwYOEBzg2jgwYMH9bTeunlL++eGjxjuEj4ilxPHT6gJpV8YE4qconr3UkXKqHT8WbjYISAZ9KPJKWGHKNUnHHQlIL5L1Q02jOpuFpEefVvDhg93WmsGpIE84eVAiNNNTh3swwcPtSrm9etX8vTxk5+IG3orCM1LlymtfQz8I0VD6RS1Xjgk2wiLklUyDqdOnpSOYWEyZGiMlpYiLHKItCkwlQTo6SrsJe9GRDo/Pl7LEFgU8Y2bEKt0QUaH+8/C5Ua8STZx+uRJCzwpWFB69umtXrCGi1w+Qjp08JCGknwXDcTIh4V31rRJA5sZCma4EA9Mevri+Qvy9MkTjZIoLfqW/k3S079nmYPg6NRwOtBWutLB5oW8vbV8Hm6kUePG2qtLrwUFHiQTqavdunmL7oti6FGjR0lwSIheg5OivRoZc3ecnVK64qlMopNUbbWXl6bjQUbATqclpFwQDaL+lMpr01IP+0SZT8/evZy+VV4MeJdIb9PGjRrpcSP/2rVkbGystuKblv1NyZvk8IEDqqHfvn11WH+bIwNt9yUiJuoISLay8CfLExM1w83eGCkA+weWJ3R1V36KoyehSSHIP88sCU0iUK4xavRo264ex5XlkBl4fq39T0vTYwMvy/SMMWPH6hgVZ5sA71L9R92rqf6Dp6Atyte3us42AE3gBNxlPLiHiQzRENuqczSN35mfO7sWR5RWWOpuQSzUduEXbEdw0djCbAjaaStVquQ0GuVeWjkfF68EFyeVfbQMCtR5O23atLH9rvNuHmAKhAbzBziqXITOFfiC3n36OAXYaCYChGHD2OMwEBKmBQE4azThM9g57KRPiRJSqnQptdHlypVXARJBmTpaEwlRvIHWM5kJbI19JpmJ4LgPCUWOP8VxsRNipaafn5YAgMWZb2MW1yNgiugeqc2LOElHbBjXp/kazX/25Kk+Dy2uFIFQX0Z9h9uGE26K+u/csVNTP9SBcSECAdoy0YLmLVo49cyYlYXzF6hZsW+ttz/qYGHoyQaNGkrjxk3Ev5a/bpKIkGOKwG9cv6ECAeIZtEDhBcENHh9byX45NVSi06pFNpd4//Wrl9I6JEThZOPGjTXEBw2ZGWW2AqZahg5KBNW8efMs5k/bdPfvV3NA+QH/z8lpGRgoY8ePczRJxHmTH8KkjgohUUdljhFvilkFUImOeF486XEG+SxMkGNHjjjUVDNYKDg0RCK6d1dHh9fHkfA7e5OTnQgNLee0YNogo+izIMNAnwR9urt27VIugSy3oz4LNJbACRtKC62ZbaNdSgvpUlqlyIaFLKKHxigSwuTY7du5cPkym2SgZdysWdqWaWoAbAkdE9byUNB3BCFrklbL33fuOGyyq1SlijqPqJ5Rekz5vjsnkpsgAiUx9pj70GZK9TvP42xhAmv41VRHyF4JODgZ1MPR88FgDIQBMTVx8iQheHCAr10Ll5tz1JJWrdIaVDMOAO1q2ryZFtrRVopgAfrYI/JcTANx5mDolwUz0y/rKd+QG+HaC5B9EkXu2rnTZVsWwgLOwRX0HzBAEwYIeO+ePZrSeffuvZ7gHj16OPM/7oWLkGiWxjwwd8CYB8hwSvoBzRwT4AlOx3auGBvkmCF8MySC73UDdYwbpx2HnrBl2TEL7uAbUJF0FNSofYO1/XfR9OIlS2jAATNIwGEmphAwmd42J/d0L1xjHs6dPauU4v69e+XbV8s0DRwAdVUIFK223SzQjXGqtDJhe0+ftEyqY8M4sGEjR2h+zV3yk/vkRnNRDvwAL5fsCkXe8+fNk5XLljsdt2IvLL5H8/ewkSMlOMQyAovravDivOzAM+FyM0iOlJQUZc3Aqc6OPTcjFKTlCK3G22MuEhcvUcjEwqwAozAr7Tu4bqhzKlwPs7/sO3VXqsK0sM5hikCY3sd+zDAjd9quCCV/Pqlbr742OoZ36eJoBID9ZTwXLsJk3Mr6v/7St37/3r2fBIwgqVegP5gNoJVqj9PStIZ1184Uq9ko8lsRnSQKrHMVlORGczkpjCAk9V22XFmdrAT/wMsmQDIv2xPh8hlCbLB+dHS0tkNBMbowa54Ll4sbeKbjAtestY4lMZvzrV5dho8aqUGG7XHHEZDAxG6TwDRaX6JUSRk4eLBCGTsAnuV5c2IWuAez0EnBkNFu2aqVRlF169WV5I0bNcj5++5dT+Vq/RwnE6GSRKDTEgbMSfo9e8LlDmiizmNMXKb9E6bYmd9R6s/4VrhfyGaDBozW81JIgJpMBYQH1S3URlBk7aw+IifCxQnD7m38a72G2rT8T5wyRfEu1CPNeVcuWYKjnCz8DR2T7B2u2gFbmH3hGg0G01L0S2uU7VQmws1aAQFKlERERFh7aHkIJmzM0/T9Bqt5QBOI7WnHZ8aYoyr27AqX4IEXifkywzgbNGxoJbKpogcxQD3mpkseUojxWYzwwtxkK4hw9UYRFhqM/SKC0/mHGVpgnBrTN8CIDNgxBEzaxYuad2KKs+EZsFu0GDEKhTZYTIrtRj0VrjkhEEfLly23lCdl7ImZCJiF3n16ayEHtOjuXaluh2o4gmc6wSkgQOfy4lvMhFW7z+ZMc81FeOuEhURlmIi/79zNognAMXpo0UiGTMKpKud76JDawlMnTlofDuFDaxIVQWva2mxPasUQLHVbkPVJK1fq/AajlfAXYHI4APhWpUXj58qWTZuyDEZ2Zx6AZESnFMt06dpF7a2L5EHuhGtMBIlNZo/xUFRJ2k7Hw9iXKVdWCQ66YxiIiVZCaSYuWaoOzsyiQYMZ9E4ei+yrOWruNBchIjDSS/DIOr88Q2N5eCpoqFpkSBxcARwyrVHs14yycidY8HyXiG4aWRL8ePBnEHIvXLMpiBKOG5FayvYd1mpH83sekpQP41L5Ow2QNWhw4uLFWnBtFoLnc1S9xMTE6HgpUv6Ox2pPEaopz549q9j14L79KiwjWF4WcxkIWLgfe4DGpD6MFwt1aOuQXQkYwp9sCsL1cFDxrxOuQRI4OgiO1StXaSOHvTdGeAD5OvXqafs9L4VJ+qa90zwgR5DRL6Sqi/sUV+9uPxB+zP8UbygqSEjQRhnbCJH74MTCu3WTjx8/qOCZHkLBByYHX8H34GU9WeynT79+mifDh3iwfq1wzQ2JisgzrV29Rluw0A5HI7Ag0JmWzwtgsoj9Z8iJMe+heYvmcvf2bTl+1MJkWWbutNbQm7+WAqVo/6dnzCQmTAaRGNembpaaBGrANqzfIAvnzVOsa8vFvKn3AAABqElEQVSaIUSdBvXpUxZWT1NCGUPaMG/uqnGcjr7y4K24/Yjx3FQBbt+6VU4et/wJAU9nfdmaCSI/rmermcaR2Np31+hGpEmzpjLt9+makLQtoOPaEEqUX3Xu0kUvQ0ckf7vC9uTxGUh6TgzZCjekU95oru1DIhC8OKlriGoGBHEU09MzRqm6fU2/7gM1/f10UAU1FIcPHbYO/ySkhamjHhcEoOUFCYvU4dn2YaC92HhMi6tUV8aO8164BlGgsYTB5ObgREELt27c9JiZyqmIEQhHuE69uqp14FJCbUaw0DnJ7yDEKRnAUaGN1qLEOXHaXGg7jxL0Q6IWzAwn4mL9O8K134B2/7x4oYTOoYMHtXoF2wdX7C6b6+ppTA0DmJkpJzVq+qltbteunf5ZBSoYTXCCI8WkEKI7wqqQVESgKxIT5cXzrH9UhBIvCCfCfBd//ut/R7i2AkJL4FjJ14FVyfCSkMRJkQX58vWLBhoUiuigS9pcySbnz6+ECfZYnVepklptg7PiH4MoSJN7OkbW/qVhzvAXJCTho+2RSFBwG9VeuAonheH/+W/T6Q2G6EV91wAAAABJRU5ErkJggg=="/><span> www.papan-memorial.com</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+        <p class="mb-1">No Sykt : 200801030928 (832260-P)</p>
+        <h1 style="text-align: left;">PURCHASE ORDER - BURIAL PLOT PACKAGE <span class="s3">福地配套認講同意書</span></h1>
+        <div class = "spacing"></div>
+        <div class="container d-flex m-0 p-0" style="justify-content: normal">
+            <table class="table-custom" cellspacing="0">
+                <tr style="height:12pt">
+                    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 1pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">AS-NEED CASE</p>
+                    </td>
+                    <td style="width:24pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                    </td>
+                </tr>
+                <tr style="height:12pt">
+                    <td style="width:93pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 1pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">PRE-NEED CASE</p>
+                    </td>
+                    <td style="width:24pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-custom" cellspacing="0">
+                <tr style="height:12pt">
+                    <td style="width:62pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt" rowspan="2">
+                        <p class="s6" style="padding-top: 1pt;padding-left: 6pt;text-indent: -4pt;text-align: left;">INTERMENT DATE</p>
+                    </td>
+                    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                    </td>
+                </tr>
+                <tr style="height:12pt">
+                    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-custom" cellspacing="0">
+                <tr style="height:12pt">
+                    <td style="width:62pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt" rowspan="2">
+                        <p class="s6" style="padding-top: 1pt;padding-left: 6pt;text-indent: -4pt;text-align: left;">PROSPECTUS SERVED</p>
+                    </td>
+                    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-custom" cellspacing="0">
+                <tr style="height:12pt">
+                    <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 1pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">RB NO</p>
+                    </td>
+                    <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 1pt;padding-left: 4pt;text-indent: 0pt;text-align: left;"><div class="smaller-textbox"> </p>
+                    </td>
+                </tr>
+                    <td style="border:#FFF; width:83pt;border-top-style:solid ;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left; margin-top:-12px; "><br/>REV: 1</p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-custom" cellspacing="0">
+                <tr>
+                    <td>
+                        <p class="s2" style="text-indent: 0pt;text-align: left;">DATE <span class="s4">日期</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="textbox" style="border:1.0pt solid #000000;display:block;min-height:12.8pt;width:79.7pt;">
+                            <p class="s5" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="smaller-textbox">Tue Jun 25 2024 06:12:52 GMT+0800 (Malaysia Time)</div></p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+          <p style="text-indent: 0pt;text-align: left;">
+          <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;line-height: 7pt;text-align: left;">I hereby agree to purchase the Licence for the burial plot specified hereunder for the consideration stipulated herein upon the terms and subject to the conditions</p>
+          <p class="s2" style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">attached thereto, the same are set forth overleaf. <span class="s4">本人同意購買下列墳地使用權，售價註明如下，並遵守以下及背頁所附的條件。
+        </span></p>
+
+      </div>
+    <div class="spacing"> </div>
+      <table style="border-collapse:collapse;margin-left:6.214pt" cellspacing="0">
+         <tr style="height:13pt">
+            <td style="width:600pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="5">
+               <p class="s7" style="padding-left: 185pt;text-indent: 0pt;line-height: 11pt;text-align: left;">PARTICULARS OF PURCHASER <span class="s8">購買者資料</span></p>
+            </td>
+         </tr>
+         <tr style="height:21pt">
+            <td style="width:375pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">FULL NAME AS IN NRIC / PASSPORT <span class="s8">身份證讀照上的全名 身份證號碼</span></p>
+               <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 9pt;text-align: left;"><div class="small-textbox"> LEE KONG HONG</p>
+            </td>
+            <td style="width:187pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+               <p class="s6" style="padding-left: 2pt;text-indent: 0pt;line-height: 11pt;text-align: left;">NRIC NO. <span class="s8">身份證號碼</span></p>
+               <p class="s8" style="padding-left: 2pt;text-indent: 0pt;line-height: 9pt;text-align: left;"><div class="small-textbox"> 740830085415</p>
+            </td>
+         </tr>
+         <tr style="height:21pt">
+            <td style="width:188pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">NATIONALITY <span class="s8">國籍</span></p>
+               <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: left;"><div class="small-textbox"> Malaysian</p>
+            </td>
+            <td style="width:187pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <form>
+                    <div class="checkbox-container">
+                        <label for="male" style ="font-size:11px;">SEX 性別</label>
+                        <input type="checkbox" id="male" name="sex" value="male">
+                        <label class="checkbox-label" for="male">MALE 男</label>
+                        <input type="checkbox" id="female" name="sex" value="female">
+                        <label class="checkbox-label" for="female">FEMALE 女</label>
+                    </div>
+                    
+                </form>
+            </td>
+            <td style="width:187pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">DATE OF BIRTH <span class="s8">出生日期</span></p>
+               <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: left;"><div class="small-textbox"> 1974-08-30</div></p>
+            </td>
+         </tr>
+         <tr style="height:32pt">
+            <td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+               <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: left;">PERMANENT ADDRESS <span class="s10">永久地址 </span><div class="small-textbox"> 9 LALUAN KLEDANG TIMUR 4 BANDAR BARU, PERAK, MALAYSIA</div></p>
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 79%;text-align: left;">POSTCODE <span class="s8">邮区号码 <div class="small-textbox">  </div></span></p>
+            </td>
+            <td style="width:279pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+               <p class="s6" style="padding-left: 2pt;padding-right: 135pt;text-indent: -2pt;line-height: 87%;text-align: left;">CORRESPONDENCE ADDRESS <span class="s11">通讯地址 </span>
+                  <div class="big-textbox">  </div>     
+                  <span style="font-size:10px; bottom: 10px; right: 10px;">
+                     POSTCODE 邮区号码
+                     <div class="small-textbox" style="display: inline-block;"></div>
+                 </span>
+            </td>
+         </tr>
+         <tr style="height:24pt">
+            <td style="width:375pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">TELEPHONE NO. <span class="s11">電話號碼</span></p>
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 12pt;text-align: left;">(HOUSE <span class="s8">住家</span>) <span class ="small-textbox"></span>(OFFICE <span class="s8">公司</span>)<span class ="small-textbox"></span><span class="s8">(MOBILE <span class="s8">手提</span>) <div class="small-textbox">660126976316</div> </p>
+            </td>
+            <td style="width:187pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: left;">E-MAIL <span class="s11">電郵</span></p>
+               <p style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;"><span><div class ="small-textbox"></div></span></p>
+            </td>
+         </tr>
+      </table>
+      <br>
+         <table style="border-collapse:collapse;margin-left:6.214pt" cellspacing="0">
+            <tr style="height:13pt">
+               <td style="width:658pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt" colspan="5">
+                  <p class="s7" style="padding-left: 185pt;text-indent: 0pt;line-height: 11pt;text-align: left;">PARTICULARS OF INTENDED USER <span class="s11">購買者資料</span></p>
+               </td>
+            </tr>
+            <tr style="height:15pt">
+               <td style="width:154pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;">FULL NAME AS PER NRIC</p>
+               </td>
+               <td style="width:129pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-left: 2pt;text-indent: 0pt;line-height: 13pt;text-align: left;">CHINESE NAME <span class="s8">中文姓名</span></p>
+               </td>
+               <td style="width:110pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-left: 3pt;text-indent: 0pt;line-height: 13pt;text-align: left;">NRIC <span class="s8">身份證號碼</span></p>
+               </td>
+               <td style="width:96pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">RELATIONSHIP <span class="s8">關係</span></p>
+               </td>
+               <td style="width:73pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">GENDER <span class="s8">性別</span></p>
+               </td>
+            </tr>
+            <tr style="height:15pt">
+               <td style="width:154pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"> <div class="small-textbox"></div> </p>
+               </td>
+               <td style="width:129pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: left;"><div class="small-textbox"></div></p>
+               </td>
+               <td style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-top: 1pt;padding-left: 3pt;text-indent: 0pt;text-align: left;"><div class="small-textbox"></div></p>
+               </td>
+               <td style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p style="text-indent: 0pt;text-align: left;"><div class="small-textbox"></div></p>
+               </td>
+               <td style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                  <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class="small-textbox"></div></p>
+               </td>
+            </tr>
+         </table>
+   <br>
+
+      <table style="border-collapse:collapse;margin-left:6.214pt;" cellspacing="0">
+        <tr style="height:13pt">
+           <td style="width:660pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="5">
+              <p class="s7" style="padding-left: 185pt;text-indent: 0pt;line-height: 11pt;text-align: left;">PARTICULARS OF BURIAL PLOT TO WHICH THE LICENCE RELATES <span class="s4">福地資料</span></p>
+           </td>
+        </tr>
+        <tr style="height:21pt">
+           <td style="width:375pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+            <div class="">
+                <div class="row gap-3 p-2"> 
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <table class="table-form">
+                                        <tr>
+                                            <td class="table-header">Zone 區域</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-details"><div class="small-textbox">B</div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-4">
+                                    <table class="table-form">
+                                        <tr>
+                                            <td class="table-header">ROW 排列</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-details"><div class="small-textbox">3</div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-4">
+                                    <table class="table-form">
+                                        <tr>
+                                            <td class="table-header">LOT NO. 福地号码</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-details"><div class="small-textbox">B-3-108</div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class ="size-container">
+                                    <div class ="container">
+                                        <table class = "size-table">
+                                            <tr>
+                                                <br>
+                                                <br>
+                                                <td class ="size-header">SIZE 面积</td>
+                                                <td class ="size-body"> <div class="small-textbox">6' X 18' = 108 Sq Ft</div> </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="place-checkbox-container">
+                                       <label for="male" style ="font-size:11px;white-space: nowrap;">SINGLE 单位</label>
+                                       <input type="checkbox" id="single" name="single" value="single">
+                                       <label class="checkbox-label" style ="font-size:11px;"for="male">DOUBLE 双位</label>
+                                       <input type="checkbox" id="double" name="double" value="double">
+                                       <label class="checkbox-label" style ="font-size:11px;"for="female">OTHERS 其他</label>
+                                       <span style= "font-size: 11px; text-decoration: underline;">Standard Double</span>
+                                   </div>
+                                   <div class = "notes-section">
+                                    <p class="s17" style="padding-left: 20pt;text-indent: 0pt;line-height: 10pt;text-align: left;">NOTES <span class="s18">备注</span></p>
+                                    <ol id="l1">
+                                       <li data-list-text="1.">
+                                          <p style="padding-left: 20pt;text-indent: 0pt;text-align: left;">All payments must be made payable to “PAPAN MEMORIAL BERHAD”. Confirmation of purchase is subject to full settlement of purchase price and clearance of cheques (if any).</p>
+                                       </li>
+                                       <li data-list-text="2.">
+                                          <p style="padding-left: 27pt;text-indent: -7pt;line-height: 8pt;text-align: left;">Please attach a photocopy of the purchaser&#39;s NRIC for our reference.</p>
+                                       </li>
+                                       <li data-list-text="3.">
+                                          <p style="padding-left: 20pt;text-indent: 0pt;text-align: left;">A certificate shall be issued within 30 days upon full payment of the total purchase price.</p>
+                                       </li>
+                                       <li data-list-text="4.">
+                                          <p style="padding-left: 20pt;text-indent: 0pt;text-align: left;">Only the Purchase Order accepted by PAPAN MEMORIAL BERHAD is valid and binding on PAPAN MEMORIAL BERHAD.</p>
+                                       </li>
+                                       <li data-list-text="5.">
+                                          <p style="padding-left: 20pt;text-indent: 0pt;text-align: left;">Purchaser must inform PAPAN MEMORIAL BERHAD at least 24-hours before any utilization.</p>
+                                       </li>
+                                       <li data-list-text="6.">
+                                          <p style="padding-left: 20pt;text-indent: 0pt;text-align: left;">A utilization fee (according to prevailing rate) is payable for each “Sheng Ji” burial utilization.</p>
+                                       </li>
+                                       <li data-list-text="7.">
+                                          <p style="padding-left: 20pt;text-indent: 0pt;text-align: left;">Purchaser must ensure that the Terms and Conditions mentioned overleaf are clearly understood and agreed upon before signing the Purchase Order.</p>
+                                       </li>
+                                    </ol>
+                                    <ol id="l2">
+                                       <li data-list-text="1.">
+                                          <p class="s19" style="padding-left: 26pt;text-indent: -6pt;line-height: 9pt;text-align: left;">支票請註明付款給“PAPAN MEMORIAL BERHAD</p>
+                                          <p class="s19" style="padding-left: 20pt;text-indent: 0pt;line-height: 9pt;text-align: left;">此認購將於全額付款與支票過帳後（如有）方為有效。</p>
+                                       </li>
+                                       <li data-list-text="2.">
+                                          <p class="s19" style="padding-left: 27pt;text-indent: -7pt;line-height: 9pt;text-align: left;">請附上購買者的身份證副本（正背面）供本公司參照。</p>
+                                       </li>
+                                       <li data-list-text="3.">
+                                          <p class="s19" style="padding-left: 27pt;text-indent: -7pt;line-height: 9pt;text-align: left;">证书將於購買者付清全部款項的30日內發出</p>
+                                       </li>
+                                       <li data-list-text="4.">
+                                          <p class="s19" style="padding-left: 27pt;text-indent: -7pt;line-height: 9pt;text-align: left;">只有經过甲板山莊公司盖章核收的認購書方為有效。</p>
+                                       </li>
+                                       <li data-list-text="5.">
+                                          <p class="s19" style="padding-left: 27pt;text-indent: -7pt;line-height: 9pt;text-align: left;">購買者要使用有關福地时，必須在24小時前通知公司。</p>
+                                       </li>
+                                       <li data-list-text="6.">
+                                          <p class="s19" style="padding-left: 27pt;text-indent: -7pt;line-height: 9pt;text-align: left;">每個福地的生基启用費將按照届时的利率額外收費。</p>
+                                       </li>
+                                       <li data-list-text="7.">
+                                          <p class="s19" style="padding-left: 27pt;text-indent: -7pt;line-height: 11pt;text-align: left;">在簽署認購同意書之前，買者必須確保其清楚明白及同意認購書背頁所列出的細則與條規。</p>
+                                       </li>
+                                    </ol>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6"> <div class ="row d-inline">
+                            <p style="text-indent: 0pt;text-align: left;">
+                            <p style="text-indent: 0pt;text-align: left;">
+                            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                            <h2 style="vertical-align:bottom; padding-left: 30px;text-indent: 0pt;text-align: left;">PURCHASE PRICE <span class="s4">價格</span></h2>
+                            <table style="border-collapse:collapse;margin-left:3pt" cellspacing="0">
+                                <tr style="height:19pt">
+                                   <td style="width:163pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">BURIAL PLOT PRICE <span class="s8"> 福地價格</span></p>
+                                   </td>
+                                   <td style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="small-textbox">9755</div></p>
+                                   </td>
+                                </tr>
+                                <tr style="height:24pt">
+                                   <td style="width:163pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: left;">MAINTENANCE &amp; FACILITY FEES</p>
+                                      <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">維修及設施費</p>
+                                   </td>
+                                   <td style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="small-textbox">12345</div></p>
+                                   </td>
+                                </tr>
+                                <tr style="height:24pt">
+                                   <td style="width:163pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: left;">1 BACKWALL &amp; WALKWAY</p>
+                                      <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">後牆與走道</p>
+                                   </td>
+                                   <td style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="small-textbox"></div></p>
+                                   </td>
+                                </tr>
+                                <tr style="height:24pt">
+                                   <td style="width:163pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: left;">2 MONUMENT PACKAGE</p>
+                                      <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">墓碑建設配套</p>
+                                   </td>
+                                   <td style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="small-textbox"></div></p>
+                                   </td>
+                                </tr>
+                                <tr style="height:12pt">
+                                   <td style="width:163pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">OTHERS <span class="s8"></span></p>
+                                   </td>
+                                   <td style="width:87pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="small-textbox"></div></p>
+                                   </td>
+                                </tr>
+                                <tr style="height:16pt">
+                                   <td style="width:163pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">TOTAL <span class="s8">總額</span></p>
+                                   </td>
+                                   <td style="width:87pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                                      <p class="s6" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"><div class ="small-textbox">22100</div></p>
+                                   </td>
+                                </tr>
+                             </table>
+                             <br>
+                             <ol id="l3">
+                              <li data-list-text="1.">
+                                 
+                                 <p class="s2" style="padding-left: 17pt;text-indent: 0pt;line-height: 10px;text-align: left; margin-bottom: 5px;">Backwall, Walkway, Hole Formation &amp; Excavation, Landscaping &amp; Turfing. <span> 後牆、走道、挖洞結構、园艺與植草服務。</span></p>
+                              </li>
+                              <li data-list-text="2.">
+                                 <p class="s2" style="padding-left: 25pt;text-indent: -8pt;line-height: 10px;text-align: left;">Monument Pakage Details will be stated in another purchase order.<span>墓碑建設配套詳細資料將於另協議書列出。</span></p>
+                              </li>
+                           </ol>
+                     </div>
+            </div>
+           </td>
+        </tr>
+      </table>
+    </div>
+    
+    <br>
+    <table style="border-collapse:collapse;margin-left:6.214pt;" cellspacing="0">
+      <tr style="height:13pt;">
+        <td colspan="5" style="width:660pt;border:1pt solid #000000;padding:0;box-sizing:border-box;">
+          <p style="padding-left:185pt;text-indent:0pt;line-height:11pt;text-align:left;margin:0;">MODE OF PAYMENT <span>付款方式</span></p>
+        </td>
+      </tr>
+      <tr style="height:30.5pt;">
+        <td style="border:1pt solid #000000;padding:5px;box-sizing:border-box;width:25%;">
+         <div class="payment-checkbox-container" >
+            <input type="checkbox" id="fullPayment" name="fullPayment" value="fullPayment">
+            <label class="checkbox-label" style ="font-size:11px;"for="fullPayment">FULL PAYMENT</label><br>
+            <input type="checkbox" class ="checkbox-payment" id="easyPayment" name="easyPayment" value="easyPayment">
+            <label class="checkbox-label" style ="font-size:11px;"for="easyPayment">EASY PAYMENT 24 MONTHS</label> 
+        </div>
+        </td>
+        <td style="border:1pt solid #000000;padding:5px;box-sizing:border-box;width:15%;">
+          <p style="text-indent:0pt;line-height:12pt;text-align:left;margin:0;">CASH <span>现金</span></p>
+          <p style="padding-left:2pt;text-indent:0pt;line-height:8pt;text-align:left;margin:0;">
+           <div class ="small-textbox">2100</div>
+          </p>
+        </td>
+        <td style="border:1pt solid #000000;padding:5px;box-sizing:border-box;width:20%;">
+          <p style="text-indent:0pt;line-height:7pt;text-align:left;margin:0;">BANK &amp; CHEQUE NO.</p>
+          <p style="padding-left:1px;text-indent:0pt;line-height:13pt;text-align:left;margin:0;">银行及支票号码</p>
+          <span style="color:black;font-family:Arial,sans-serif;font-style:normal;font-weight:normal;text-decoration:none;font-size:8pt;"><div class ="small-textbox"></div></span>
+        </td>
+        <td style="border:1pt solid #000000;padding:5px;box-sizing:border-box;width:20%;">
+          <p style="text-indent:0pt;line-height:13pt;text-align:left;margin:0;">VISA/MASTER/OTHERS <span>信用卡/其他</span></p>
+          <div class ="small-textbox"></div>
+        </td>
+        <td style="border:1pt solid #000000;padding:5px;box-sizing:border-box;width:20%;">
+          <p style="text-indent:0pt;line-height:13pt;text-align:left;margin:0;">TOTAL PAYMENT <span>付款总额</span> <div class ="small-textbox">2100</div></p>
+        </td>
+      </tr>
+    </table>
+      
+    
+   </table>
+       </div><p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <table style="border-collapse:collapse;margin-left:5.595pt ;" cellspacing="0">
+         <tr style="height:22pt">
+            <td style="width:660pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+               <p class="s7" style="padding-left: 179pt;text-indent: 0pt;line-height: 13pt;text-align: left;">MODE OF CERTIFICATE COLLECTION <span class="s8">證書領收方式</span></p>
+            </td>
+         </tr>
+         <tr style="height:58pt">
+            <td style="width:559pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+                  <form>
+                     <div class="checkbox-container">
+                         <label for="male" style ="font-size:11px;">CERTIFICATE TO BE COLLECTED BY <span class="s21">接收證書人士或方式</span></label>
+                         <input type="checkbox" id="male" name="sex" value="male">
+                         <label class="checkbox-label" for="purchaser">PURCHASER <span class="s21">購買者     </span></label>
+                         <input type="checkbox" id="authorizedrep" name="authorizedrep" value="authorizedrep">
+                         <label class="checkbox-label" for="authorizedrep">AUTHORISED REPRESENTATIVE <span class="s21">授權代理</span></label>
+                         <input type="checkbox" id="mail" name="mail" value="mail">
+                         <label class="checkbox-label" for="mail">MAIL <span class="s21">郵寄</span></p></label>
+                     </div>
+                 </form>
+               <p class="s20" style="padding-top: 7pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">NOTE <span class="s21">註明: </span><i>If collected by Authorised Reprentative, an authorisation letter from the Purchaser must be furnished. </i><span class="s8">如選擇由授權代表領取，購買者必須提供授權書。</span></p>
+               <p class="s6" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;text-align: left;padding-bottom:10px;">REPRESENTATIVE NAME <span class="s8">代表全名</span></p>
+               <div class ="small-textbox"></div>
+               <p style="padding-left: 135pt;text-indent: 0pt;line-height: 1pt;text-align: left;">
+               <p class="s6" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;text-align: left;padding-bottom:3px;">NRIC NO. <span class="s8">身份證號碼</span></p>
+               <div class ="small-textbox"></div>
+            </td>
+         </tr>
+         <tr style="height:38pt">
+            <td style="width:405pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
+               <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               <p style="text-indent: 0pt;text-align: left;">
+               <p style="padding-left: 87pt;text-indent: 0pt;line-height: 1pt;text-align: left;">
+               <p class="s6" style="padding-left: 2pt;text-indent: 0pt;text-align: left;">CONTACT NO. <span class="s8">電話號碼</span></p>
+               <div class ="small-textbox"></div>
+               <p class="s22" style="text-indent: 0pt;text-align: left;">*Please provide photocopy of Representative’s NRIC for our reference. <span class="s21">請附上授權代表人的身份證副本（正背面）供公司參照。</span></p>
+            </td>
+            
+            <td style="width:154pt;border-top-style:solid;border-top-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               
+               <p class="s6" style="text-indent: 0pt;line-height: 13pt;text-align: left;">SIGNATURE OF PURCHASER <span class="s8">購買者簽名</span></p>
+               <p class="s6" style="padding-top: 1pt;text-indent: 0pt;text-align: left;">DATE <span class="s8">日期:</span><span class ="smaller-textbox"></span></p>
+            </td>
+         </tr>
+      </table>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <table style="border-collapse:collapse;margin-left:5.852pt" cellspacing="0">
+         <tr style="height:14pt">
+            <td style="width:660pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+               <p class="s7" style="padding-left: 41pt;padding-right: 33pt;text-indent: 0pt;line-height: 13pt;text-align: center;">PARTICULARS OF SALES PERSONNEL <span class="s8">銷售顧問資料</span></p>
+            </td>
+         </tr>
+         <tr style="height:36pt">
+            <td style="width:327pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: left;">NAME <span class="s8">姓名 <span class="small-textbox">LOH POH YI</span></p>
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 9pt;text-align: left;">FUNERAL DIRECTOR <span class="s8">殯儀承辦商</span><span class="small-textbox"></span></p>
+               <p class="s6" style="padding-left: 1pt;font-size:8px; text-indent: 0pt;line-height: 12pt;text-align: left;">(if applicable) <span class="s8">(如有)</span></p>
+            </td>
+            <td style="width:136pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-top: 2pt;padding-left: 1pt;padding-right: 95pt;text-indent: 0pt;line-height: 64%;text-align: left;">CODE <span class="s8">編號 <div class="small-textbox"></div></span></p>
+            </td>
+            <td style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">SIGNATURE <span class="s8">簽名 </span></p>
+               <!-- <div class="small-textbox"></div> -->
+            </td>
+         </tr>
+      </table>
+      <br>
+      <table style="border-collapse:collapse;margin-left:5.852pt" cellspacing="0">
+         <tr style="height:14pt">
+            <td style="width:660pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+               <p class="s7" style="padding-left: 41pt;padding-right: 33pt;text-indent: 0pt;line-height: 13pt;text-align: center;">FOR OFFICE USE ONLY <span class="s8">公務用檔</span></p>
+            </td>
+         </tr>
+         <tr style="height:22pt">
+            <td style="width: 100pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-left: 2pt;text-indent: 0pt;line-height: 13pt;text-align: left;">RECEIVED AND ACCEPTED <span class="s8">認購接收人</span>
+                  <!-- <div class="small-textbox" ></div> -->
+               </p>
+            </td>
+            <td style="width:88pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 13pt;text-align: left;">CERTIFICATE NO. <span class="s8">證書號碼</span>
+                  <!-- <div class="small-textbox" >{officeUse_CertNo}</div> -->
+               </p>
+            </td>
+            <td style="width:164pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-left: 1pt;text-indent: 0pt;text-align: left;">UPDATED BY <span class="s23">資料輸入者</span>
+                  <!-- <div class="small-textbox" >{officeUse_UpdateBy}</div> -->
+               </p>
+            </td>
+         </tr>
+         <tr style="height:14pt">
+            <td style="width:559pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="3">
+               <p class="s6" style="padding-left: 2pt;text-indent: 0pt;line-height: 13pt;text-align: left;">REMARKS <span class="s8">備註</span>
+                  <!-- <div class="small-textbox" >{officeUse_Remarks}</div> -->
+                   <br>
+                   <br>
+               </p>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>
