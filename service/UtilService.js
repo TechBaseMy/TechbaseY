@@ -7,15 +7,8 @@ const ProductService = require("../service/ProductService");
 const Constants = require("../util/Constant");
 
 class UtilService {
-  static async getParameterValue(category) {
-    const query = `
-        SELECT * FROM tbl_Parameter WITH (NOLOCK) WHERE Category = :Category
-    `;
-    const result = await sequelize.query(query, {
-      replacements: { Category: category },
-      type: Sequelize.QueryTypes.SELECT,
-    });
-    return result;
+  static async getParameterValue(language = 'EN', category) {
+    return (await QueryHandler.executeQuery(39, {Language: language, ParameterCategory: category}));
   }
 }
 module.exports = UtilService;

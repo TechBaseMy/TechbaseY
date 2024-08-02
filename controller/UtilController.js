@@ -140,8 +140,8 @@ class UtilController {
 
   static async GetParameterValue(req, res) {
     try {
-      const body = await getParameterValueSchema.parseAsync(req.body);
-      const result = await UtilService.getParameterValue(body.category);
+      const body = req.body;
+      const result = await UtilService.getParameterValue(body.Language, body.Category);
 
       res.status(200).send({
         Success: true,

@@ -93,26 +93,46 @@ module.exports = function (app) {
   // );
   //#endregion
   //#region PRODUCT CONTROLLER
-  // app.get(
-  //   "/product/getFloorPlan",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   ProductController.GetFloorPlan
-  // );
-  // app.post(
-  //   "/product/getFloorPlanList",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   ProductController.GetFloorPlanList
-  // );
-  // app.get("/product/getBookingList", PrivateRoute(Constant.role_admin), ProductController.GetBookingList);
-  // app.post("/product/createProduct", PrivateRoute(Constant.role_admin), ProductController.createProduct);
-  // app.get(
-  //   "/product/getProductCreationSetup",
-  //   PrivateRoute(Constant.role_admin),
-  //   ProductController.getProductCreationSetup
-  // );
-  // app.post("/product/updateProductBasic", PrivateRoute(Constant.role_admin), ProductController.UpdateProductBasic);
-  // app.post("/product/updateProductDisplay", PrivateRoute(Constant.role_admin), ProductController.UpdateProductDisplay);
-  // app.post("/product/updateProductImage", PrivateRoute(Constant.role_admin), ProductController.UpdateProductImage);
+  app.post("/product/createProduct",
+    //PrivateRoute(Constant.role_admin), 
+    ProductController.createProduct
+  );
+  app.post("/product/createNewProductCategory",
+    //PrivateRoute(Constant.role_admin),
+    ProductController.CreateNewProductCategory
+  );
+  app.post("/product/getFullProductDetail",
+    //PrivateRoute(Constant.role_admin),
+    ProductController.GetFullProductDetail
+  );
+  app.get("/product/getFullProductCategoryList",
+    //PrivateRoute(Constant.role_admin),
+    ProductController.GetFullProductCategoryList
+  );
+  app.post("/product/updateProductBasic", 
+    //PrivateRoute(Constant.role_admin), 
+    ProductController.UpdateProductBasic
+  );
+  app.post("/product/updateProductDisplay", 
+    //PrivateRoute(Constant.role_admin), 
+    ProductController.UpdateProductDisplay
+  );
+  app.post("/product/updateProductImage", 
+    //PrivateRoute(Constant.role_admin), 
+    ProductController.UpdateProductImage
+  );
+  app.post("/product/updateProductPricingByProductCode",
+    //PrivateRoute(Constant.role_admin),
+    ProductController.UpdateProductPricingByProductCode
+  );
+  app.post("/product/updateProductPricingForCertainCountry",
+    //PrivateRoute(Constant.role_admin),
+    ProductController.UpdateProductPricingForCertainCountry
+  );
+  app.post("/product/updateProductCategory",
+    //PrivateRoute(Constant.role_admin),
+    ProductController.UpdateProductCategory
+  );
   //#endregion
   //#region LOT CONTROLLER
   // app.post(

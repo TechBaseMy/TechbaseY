@@ -23,9 +23,10 @@ module.exports = function (app) {
   //#endregion
 
   //#region PRODUCT CONTROLLER
-
-  app.post("/product/getProductList", ProductController.getProductList);
-  app.post("/product/getProductDetail", ProductController.getProductDetail);
+  app.post("/product/getProductList", ProductController.GetProductList);
+  app.post("/product/getSimpleProductDetail", ProductController.GetSimpleProductDetail);
+  app.get("/product/getValidProductCategoryList", ProductController.GetValidProductCategoryList);
+  app.post("/product/getSingleProductCategory", ProductController.GetSingleProductCategory);
   //#endregion
 
   //#region UTIL CONTROLLER
