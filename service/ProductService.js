@@ -99,15 +99,15 @@ class ProductService {
     }
   }
   static async insertTblProductPackage(body, req, t = null){
-    for (const package of body.ProductPackage) {
-      const productID = await this.getProductIDByProductCode(package.ProductCode);
+    for (const pack of body.ProductPackage) {
+      const productID = await this.getProductIDByProductCode(pack.ProductCode);
       await QueryHandler.executeQuery(
         17, 
         {
           PackageID: body.ProductID,
           ProductID: productID,
-          Quantity: package.Quantity,
-          FocQuantity: package.FocQuantity,
+          Quantity: pack.Quantity,
+          FocQuantity: pack.FocQuantity,
           CreatedBy: body.CreatedBy,
         }, 
         "INSERT PRODUCT PACKAGE", req, t
