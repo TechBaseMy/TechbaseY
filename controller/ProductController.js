@@ -83,7 +83,7 @@ class ProductController {
   static async GetSimpleProductDetail(req, res) {
     try {
       const body = req.body;
-      const result = await ProductService.getProductDetailsForDisplay(body.ProductCode);
+      const result = await ProductService.getProductDetailsForDisplay(body);
 
       res.status(200).send({
         Success: true,
