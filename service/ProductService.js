@@ -19,21 +19,18 @@ class ProductService {
   static async getFullProductDetailsByProductCode(productCode){
     const productID = await this.getProductIDByProductCode(productCode);
 
-    let product = await QueryHandler.executeQuery(25, {ProductID: productID})?.[0];
+    let product = (await QueryHandler.executeQuery(25, {ProductID: productID}))[0];
     const productLanguage = await QueryHandler.executeQuery(26, {ProductID: productID});
     const productPackage = await QueryHandler.executeQuery(27, {ProductID: productID});
     const productDisplay = await QueryHandler.executeQuery(28, {ProductID: productID});
     const productImage = await this.getProductImageByProductID(productID);
     const productPricing = await QueryHandler.executeQuery(30, {ProductID: productID});
 
-    product = product.map(p => {
-      p.Language = productLanguage || [];
-      p.Display = productDisplay || [];
-      p.Image = productImage || [];
-      p.Pricing = productPricing || [];
-      p.Package = productPackage || [];
-      return p;
-    });
+    product.Language = productLanguage || [];
+    product.Display = productDisplay || [];
+    product.Image = productImage || [];
+    product.Pricing = productPricing || [];
+    product.Package = productPackage || [];
 
     return product;
   }
@@ -72,7 +69,7 @@ class ProductService {
   }
   static async insertTblProductDisplay(body, req, t = null) {
     for (const displayType of body.ProductDisplayType) {
-      const result = await QueryHandler.executeQuery(
+      await QueryHandler.executeQuery(
         15, 
         {
           ProductID: body.ProductID,
@@ -85,7 +82,7 @@ class ProductService {
   }
   static async insertTblProductImage(body, req, t = null) {
     for (const productImage of body.ProductImage) {
-      const result = await QueryHandler.executeQuery(
+      await QueryHandler.executeQuery(
         12, 
         {
           ProductID: body.ProductID,
@@ -100,7 +97,7 @@ class ProductService {
   static async insertTblProductPackage(body, req, t = null){
     for (const pack of body.ProductPackage) {
       const productID = await this.getProductIDByProductCode(pack.ProductCode);
-      const result = await QueryHandler.executeQuery(
+      await QueryHandler.executeQuery(
         17, 
         {
           PackageID: body.ProductID,
@@ -115,12 +112,12 @@ class ProductService {
   }
   static async insertTblProductLanguage(body, req, t = null){
     for (const language of body.ProductLanguage) {
-      const result = await QueryHandler.executeQuery(
+      await QueryHandler.executeQuery(
         16, 
         {
           ProductID: body.ProductID,
           ProductName: language.ProductName,
-          Description: language.Description,
+          Description: language.Description || null,
           Language: language.Language,
           CreatedBy: body.CreatedBy,
         }, 
@@ -130,7 +127,7 @@ class ProductService {
   }
   static async insertTblProductPricing(body, req, t = null){
     for (const pricing of body.ProductPricing) {
-      const result1 = await QueryHandler.executeQuery(
+      await QueryHandler.executeQuery(
         13, 
         {
           ProductID: body.ProductID,
@@ -146,7 +143,7 @@ class ProductService {
         req, t
       );
 
-      const result2 = await QueryHandler.executeQuery(
+      await QueryHandler.executeQuery(
         14, 
         {
           ProductID: body.ProductID,
@@ -165,28 +162,28 @@ class ProductService {
   }
 
   static async insertProduct(data, req, t = null) {
-    body.ProductID = await this.insertTblProduct(data, req, t);
+    data.ProductID = await this.insertTblProduct(data, req, t);
 
-    if (body.ProductID == null || body.ProductID === ""){
+    if (data.ProductID == null || data.ProductID === ""){
       throw new Error("New Product ID failed to be retrieved. Please contact customer support.");
     } else {
-      if (data.ProductDisplayType != null && data.ProductDisplayType.length() > 0){
+      if (data.ProductDisplayType != null && data.ProductDisplayType.length > 0){
         await this.insertTblProductDisplay(data, req, t);
       }
 
-      if (data.ProductLanguage != null && data.ProductLanguage.length() > 0){
+      if (data.ProductLanguage != null && data.ProductLanguage.length > 0){
         await this.insertTblProductLanguage(data, req, t);
       }
 
-      if (data.ProductPackage != null && data.ProductPackage.length() > 0){
+      if (data.ProductPackage != null && data.ProductPackage.length > 0){
         await this.insertTblProductPackage(data, req, t);
       }
 
-      if (data.ProductPricing != null && data.ProductPricing.length() > 0) {
+      if (data.ProductPricing != null && data.ProductPricing.length > 0) {
         await this.insertTblProductPricing(data, req, t);
       }
 
-      if (data.ProductImage != null && data.ProductImage.length() > 0){
+      if (data.ProductImage != null && data.ProductImage.length > 0){
         try {
           for (let imgIndex in data.ProductImage) {
             if (data.ProductImage.hasOwnProperty(imgIndex)) {
@@ -207,6 +204,9 @@ class ProductService {
                     data.ProductImage[imgIndex].FileUrl = uploadRes.productImage;
                     await this.insertTblProductImage(data, req, t);
                 }
+              }
+              else {
+                throw new Error("Invalid FileUrl format. Please insert base64 formatted string with 'data:[fileType]/[Extension];' format to ensure valid file upload.");
               }
             }
           }
@@ -234,7 +234,7 @@ class ProductService {
 
     await QueryHandler.executeQuery(22, data, req, t);
 
-    if (data.ProductDisplayType != null && data.ProductDisplayType.length() > 0){
+    if (data.ProductDisplayType != null && data.ProductDisplayType.length > 0){
       if (Array.isArray(data.ProductDisplayType) && data.ProductDisplayType.length > 0){
         await this.insertTblProductDisplay(data, req, t);
       }
@@ -245,7 +245,7 @@ class ProductService {
     data.ProductID = await this.getProductIDByProductCode(data.ProductCode);
     await QueryHandler.executeQuery(23, data, req, t);
 
-    if (data.ProductImage != null && data.ProductImage.length() > 0){
+    if (data.ProductImage != null && data.ProductImage.length > 0){
       try {
         for (let imgIndex in data.ProductImage) {
           if (data.ProductImage.hasOwnProperty(imgIndex)) {
@@ -267,6 +267,9 @@ class ProductService {
                   await this.insertTblProductImage(data, req, t);
               }
             }
+            else {
+              throw new Error("Invalid FileUrl format. Please insert base64 formatted string with 'data:[fileType]/[Extension];' format to ensure valid file upload.");
+            }
           }
         }
       }
@@ -283,7 +286,7 @@ class ProductService {
 
     await QueryHandler.executeQuery(20, data, req, t);
 
-    if (data.ProductPricing == null || data.ProductPricing.length() < 0){
+    if (data.ProductPricing == null || data.ProductPricing.length < 0){
       throw new Error("Product Pricing request body cannot be empty!");
     }
     else {
