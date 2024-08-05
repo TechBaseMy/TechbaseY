@@ -56,10 +56,10 @@ class ProductService {
     return (await QueryHandler.executeQuery(29, {ProductID: productID}));
   }
   static async getValidProductCategoryList(){
-    return (await QueryHandler.executeQuery(34, NULL));
+    return (await QueryHandler.executeQuery(34, []));
   }
   static async getFullProductCategoryList(){
-    return (await QueryHandler.executeQuery(35, NULL));
+    return (await QueryHandler.executeQuery(35, []));
   }
   static async getProductList(body) {
     const result = await QueryHandler.executeQuery(24, body);
