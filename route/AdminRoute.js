@@ -12,7 +12,11 @@ const AnnouncementController = require("../controller/AnnouncementController");
 
 module.exports = function (app) {
   //#region SALES CONTROLLER
-  // app.post("/sales/insertSales", PrivateRoute([Constant.role_admin, Constant.role_agent]), SalesController.InsertSales);
+  app.post(
+    "/sales/insertSales",
+    // PrivateRoute([Constant.role_admin, Constant.role_agent]),
+    SalesController.InsertSales
+  );
   // app.post(
   //   "/sales/insertInstallmentPayment",
   //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
@@ -93,43 +97,53 @@ module.exports = function (app) {
   // );
   //#endregion
   //#region PRODUCT CONTROLLER
-  app.post("/product/createProduct",
-    //PrivateRoute(Constant.role_admin), 
+  app.post(
+    "/product/createProduct",
+    //PrivateRoute(Constant.role_admin),
     ProductController.createProduct
   );
-  app.post("/product/createNewProductCategory",
+  app.post(
+    "/product/createNewProductCategory",
     //PrivateRoute(Constant.role_admin),
     ProductController.CreateNewProductCategory
   );
-  app.post("/product/getFullProductDetail",
+  app.post(
+    "/product/getFullProductDetail",
     //PrivateRoute(Constant.role_admin),
     ProductController.GetFullProductDetail
   );
-  app.get("/product/getFullProductCategoryList",
+  app.get(
+    "/product/getFullProductCategoryList",
     //PrivateRoute(Constant.role_admin),
     ProductController.GetFullProductCategoryList
   );
-  app.post("/product/updateProductBasic", 
-    //PrivateRoute(Constant.role_admin), 
+  app.post(
+    "/product/updateProductBasic",
+    //PrivateRoute(Constant.role_admin),
     ProductController.UpdateProductBasic
   );
-  app.post("/product/updateProductDisplay", 
-    //PrivateRoute(Constant.role_admin), 
+  app.post(
+    "/product/updateProductDisplay",
+    //PrivateRoute(Constant.role_admin),
     ProductController.UpdateProductDisplay
   );
-  app.post("/product/updateProductImage", 
-    //PrivateRoute(Constant.role_admin), 
+  app.post(
+    "/product/updateProductImage",
+    //PrivateRoute(Constant.role_admin),
     ProductController.UpdateProductImage
   );
-  app.post("/product/updateProductPricingByProductCode",
+  app.post(
+    "/product/updateProductPricingByProductCode",
     //PrivateRoute(Constant.role_admin),
     ProductController.UpdateProductPricingByProductCode
   );
-  app.post("/product/updateProductPricingForCertainCountry",
+  app.post(
+    "/product/updateProductPricingForCertainCountry",
     //PrivateRoute(Constant.role_admin),
     ProductController.UpdateProductPricingForCertainCountry
   );
-  app.post("/product/updateProductCategory",
+  app.post(
+    "/product/updateProductCategory",
     //PrivateRoute(Constant.role_admin),
     ProductController.UpdateProductCategory
   );

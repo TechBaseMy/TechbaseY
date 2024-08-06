@@ -86,19 +86,19 @@ const insertInstallmentPaymentSchema = ZodCustomValidator.customRefine(
     receipt: z.string().optional(),
   })
 )
-.refine(
-  async (data) => {
-    if (data.paymentType == "100") {
-      return data?.receipt != null;
-    }
-    return true;
-  },
-  { message: "Receipt Cannot be Empty Online Transfer Payment." }
-)
-.transform(async (data) => {
-  data.memberID = (await SalesService.getSalesBySalesID(data.salesID))[0].MemberId;
-  return data;
-});
+  .refine(
+    async (data) => {
+      if (data.paymentType == "100") {
+        return data?.receipt != null;
+      }
+      return true;
+    },
+    { message: "Receipt Cannot be Empty Online Transfer Payment." }
+  )
+  .transform(async (data) => {
+    data.memberID = (await SalesService.getSalesBySalesID(data.salesID))[0].MemberId;
+    return data;
+  });
 
 const pendingInstallmentFilterSchema = ZodCustomValidator.customRefine(
   z.object({
@@ -109,69 +109,63 @@ const pendingInstallmentFilterSchema = ZodCustomValidator.customRefine(
     lotNo: z.string().optional(),
     salesType: z.number().optional().default(0),
     dateFrom: z
-    .string()
-    .optional()
-    .refine(
-      (str) => {
-        if (str != null && str !== ""){
-          try {
-            const date = new Date(str);
-            return !isNaN(date.getTime());
-          } catch (error) {
+      .string()
+      .optional()
+      .refine(
+        (str) => {
+          if (str != null && str !== "") {
+            try {
+              const date = new Date(str);
+              return !isNaN(date.getTime());
+            } catch (error) {
               return false;
+            }
+          } else {
+            return true;
           }
+        },
+        {
+          message: "Invalid date format on dateTo",
         }
-        else {
-          return true
-        }
-      },
-      {
-        message: "Invalid date format on dateTo",
-      }
-    )
-    .transform(
-      (str) => {
-        if (str != null && str !== ""){
+      )
+      .transform((str) => {
+        if (str != null && str !== "") {
           let date = moment.tz(str, "Asia/Kuala_Lumpur").toDate();
           date = format(date, "yyyy-MM-dd 00:00:00.000");
           return date;
-        }
-        else {
+        } else {
           return str;
         }
-    }),
+      }),
     dateTo: z
-    .string()
-    .optional()
-    .refine(
-      (str) => {
-        if (str != null && str !== ""){
-          try {
-            const date = new Date(str);
-            return !isNaN(date.getTime());
-          } catch (error) {
+      .string()
+      .optional()
+      .refine(
+        (str) => {
+          if (str != null && str !== "") {
+            try {
+              const date = new Date(str);
+              return !isNaN(date.getTime());
+            } catch (error) {
               return false;
+            }
+          } else {
+            return true;
           }
+        },
+        {
+          message: "Invalid date format on dateTo",
         }
-        else {
-          return true
-        }
-      },
-      {
-        message: "Invalid date format on dateTo",
-      }
-    )
-    .transform(
-      (str) => {
-        if (str != null && str !== ""){
+      )
+      .transform((str) => {
+        if (str != null && str !== "") {
           let date = moment.tz(str, "Asia/Kuala_Lumpur").toDate();
           date = format(date, "yyyy-MM-dd 23:59:59.997");
           return date;
-        }
-        else {
+        } else {
           return str;
         }
-    }),
+      }),
     pageNumber: z.number().positive(),
     pageSize: z.number().positive(),
   })
@@ -189,8 +183,7 @@ const approveRejectInstallmentSchema = ZodCustomValidator.customRefine(
     isApproved: z.boolean(),
     createdBy: z.string().optional(),
   })
-)
-.refine(
+).refine(
   async (data) => {
     return !(await SalesService.validateSalesInstallmentPayment(data.salesID, data.transactionID));
   },
@@ -259,69 +252,63 @@ const pendingPaymentListFilterSchema = ZodCustomValidator.customRefine(
     salesType: z.number().optional().default(0),
     paymentPurpose: z.number().optional().default(0),
     dateFrom: z
-    .string()
-    .optional()
-    .refine(
-      (str) => {
-        if (str != null && str !== ""){
-          try {
-            const date = new Date(str);
-            return !isNaN(date.getTime());
-          } catch (error) {
+      .string()
+      .optional()
+      .refine(
+        (str) => {
+          if (str != null && str !== "") {
+            try {
+              const date = new Date(str);
+              return !isNaN(date.getTime());
+            } catch (error) {
               return false;
+            }
+          } else {
+            return true;
           }
+        },
+        {
+          message: "Invalid date format on dateTo",
         }
-        else {
-          return true
-        }
-      },
-      {
-        message: "Invalid date format on dateTo",
-      }
-    )
-    .transform(
-      (str) => {
-        if (str != null && str !== ""){
+      )
+      .transform((str) => {
+        if (str != null && str !== "") {
           let date = moment.tz(str, "Asia/Kuala_Lumpur").toDate();
           date = format(date, "yyyy-MM-dd 00:00:00.000");
           return date;
-        }
-        else {
+        } else {
           return str;
         }
-    }),
+      }),
     dateTo: z
-    .string()
-    .optional()
-    .refine(
-      (str) => {
-        if (str != null && str !== ""){
-          try {
-            const date = new Date(str);
-            return !isNaN(date.getTime());
-          } catch (error) {
+      .string()
+      .optional()
+      .refine(
+        (str) => {
+          if (str != null && str !== "") {
+            try {
+              const date = new Date(str);
+              return !isNaN(date.getTime());
+            } catch (error) {
               return false;
+            }
+          } else {
+            return true;
           }
+        },
+        {
+          message: "Invalid date format on dateTo",
         }
-        else {
-          return true
-        }
-      },
-      {
-        message: "Invalid date format on dateTo",
-      }
-    )
-    .transform(
-      (str) => {
-        if (str != null && str !== ""){
+      )
+      .transform((str) => {
+        if (str != null && str !== "") {
           let date = moment.tz(str, "Asia/Kuala_Lumpur").toDate();
           date = format(date, "yyyy-MM-dd 23:59:59.997");
           return date;
-        }
-        else {
+        } else {
           return str;
         }
-    }),
+      }),
   })
 );
 
@@ -353,96 +340,87 @@ const getPaymentListSchema = ZodCustomValidator.customRefine(
     status: z.enum(["O", "U", "C"]).optional(),
     category: z.enum(["1", "10002", "10003"]).optional(),
     dateFrom: z
-    .string()
-    .optional()
-    .refine(
-      (str) => {
-        if (str != null && str !== ""){
-          try {
-            const date = new Date(str);
-            return !isNaN(date.getTime());
-          } catch (error) {
+      .string()
+      .optional()
+      .refine(
+        (str) => {
+          if (str != null && str !== "") {
+            try {
+              const date = new Date(str);
+              return !isNaN(date.getTime());
+            } catch (error) {
               return false;
+            }
+          } else {
+            return true;
           }
+        },
+        {
+          message: "Invalid date format on dateFrom",
         }
-        else {
-          return true
-        }
-      },
-      {
-        message: "Invalid date format on dateFrom",
-      }
-    )
-    .transform(
-      (str) => {
-        if (str != null && str !== ""){
+      )
+      .transform((str) => {
+        if (str != null && str !== "") {
           let date = moment.tz(str, "Asia/Kuala_Lumpur").toDate();
           date = format(date, "yyyy-MM-dd 00:00:00.000");
           return date;
-        }
-        else {
+        } else {
           return null;
         }
-    }),
+      }),
     dateTo: z
-    .string()
-    .optional()
-    .refine(
-      (str) => {
-        if (str != null && str !== ""){
-          try {
-            const date = new Date(str);
-            return !isNaN(date.getTime());
-          } catch (error) {
+      .string()
+      .optional()
+      .refine(
+        (str) => {
+          if (str != null && str !== "") {
+            try {
+              const date = new Date(str);
+              return !isNaN(date.getTime());
+            } catch (error) {
               return false;
+            }
+          } else {
+            return true;
           }
+        },
+        {
+          message: "Invalid date format on dateTo",
         }
-        else {
-          return true
-        }
-      },
-      {
-        message: "Invalid date format on dateTo",
-      }
-    )
-    .transform(
-      (str) => {
-        if (str != null && str !== ""){
+      )
+      .transform((str) => {
+        if (str != null && str !== "") {
           let date = moment.tz(str, "Asia/Kuala_Lumpur").toDate();
           date = format(date, "yyyy-MM-dd 23:59:59.997");
           return date;
-        }
-        else {
+        } else {
           return null;
         }
-    }),
+      }),
   })
-)
-.transform(
-  (data) => {
-    if (data.status != null && data.status !== ""){
-      switch (data.status){
-        case "O":
-          data.status = "Overdue";
-          break;
+).transform((data) => {
+  if (data.status != null && data.status !== "") {
+    switch (data.status) {
+      case "O":
+        data.status = "Overdue";
+        break;
 
-        case "U":
-          data.status = "Up to date";
-          break;
+      case "U":
+        data.status = "Up to date";
+        break;
 
-        case "C":
-          data.status = "Completed";
-          break;
+      case "C":
+        data.status = "Completed";
+        break;
 
-        default:
-          data.status = null;
-          break;
-      }
+      default:
+        data.status = null;
+        break;
     }
-
-    return data;
   }
-);
+
+  return data;
+});
 
 const reuploadReceiptSchema = ZodCustomValidator.customRefine(
   z
@@ -562,316 +540,41 @@ const addAuthorizedRepresentativeSchema = ZodCustomValidator.customRefine(
 
 const cancelBookingSalesSchema = ZodCustomValidator.customRefine(
   z.object({
-    salesID: z.string()
-    .refine(
-      async (data) => {
-        return (await SalesService.validateBookingSalesID(data));
-      },
-      { message: "Invalid booking sales ID." }
-    )
-    .refine(
-      async (data) => {
-        const result = await SalesService.getSalesBySalesID(data);
-        return result[0].StatusX !== "RF";
-      },
-      { message: "You cannot cancel a refunded booking sales!" }
-    ),
-    status: z.string().optional().transform(async () => "CCL"),
-    createdBy: z.string()
-  })
-);
-
-////////////////////////////////////////////////////////////////
-//            Will be used by other controllers
-const insertSalesSchema = ZodCustomValidator.customRefine(
-  z
-    .object({
-      salesID: z
-        .string()
-        .optional()
-        .transform(async () => await SalesService.generateSalesID()),
-      salesType: z.string().refine(
+    salesID: z
+      .string()
+      .refine(
         async (data) => {
-          const parameterList = await UtilService.getParameterValue("SalesType");
-          return parameterList.map((parameter) => parameter.ParameterValue).includes(data);
+          return await SalesService.validateBookingSalesID(data);
         },
-        {
-          message: "Invalid Payment Type",
-        }
-      ), // [1]Registration / [2]UnitSales / [3]FSPSales / [4]MerchandiseSales / [5]MISCPayment / [6]UnitBooking / [7]FSPBooking
-
-      unitID: z.string().optional(),
-      memberID: z.string().optional(),
-      purchaserID: z.string().optional(),
-      salesByID: z.string().refine(
-        async (memberID) => {
-          const res = await MemberService.getUserRole(memberID);
-          return res != null && res !== "C";
+        { message: "Invalid booking sales ID." }
+      )
+      .refine(
+        async (data) => {
+          const result = await SalesService.getSalesBySalesID(data);
+          return result[0].StatusX !== "RF";
         },
-        { message: "Invalid sales by ID." }
+        { message: "You cannot cancel a refunded booking sales!" }
       ),
-      totalPrice: z.number().nonnegative().optional(),
-      totalPV: z.number().optional(),
-      paymentType: z.string().refine(
-        async (data) => {
-          const parameterList = await UtilService.getParameterValue("PaymentType");
-          return parameterList.map((parameter) => parameter.ParameterValue).includes(data);
-        },
-        {
-          message: "Invalid Payment Type",
-        }
-      ), // [5] Cash, [2] Cash Wallet, [66] Cheque, [7] Card Payment, [88] iPay88, [100] Online Payment, [6] Redemption Wallet, [4] Voucher, [1] Wallet
-      remarks: z.string().optional(),
-      status: z
-        .string()
-        .optional()
-        .transform(async () => "P"),
-      unitPayable: z.number().nonnegative().optional().default(0),
-      bindUnitSalesID: z.string().optional(),
-      bindUnitBookingID: z.string().optional(),
-      introducerDetail: z.string().optional(),
-      authorizedFullName: z.string().optional(),
-      authorizedIC: z.string().optional(),
-      authorizedMobileNo: z.string().optional(),
-      bookingExpiry: z
-        .string()
-        .optional()
-        .transform(() => {
-          let now = moment().tz("Asia/Kuala_Lumpur").toDate();
-          now = addDays(now, 7);
-          const formattedExpiryDate = format(now, "yyyy-MM-dd HH:mm:ss.SSS");
-          return formattedExpiryDate;
-        }),
-
-      fullname: z.string().optional(),
-      contactNo: z.string().optional(),
-
-      receipt: z.string().optional(),
-      paymentPurpose: z.string().optional(),
-      transactionID: z.string().optional(),
-      isMailToPurchaserId: z.boolean().default(false),
-      mailToPurchaserId: z.string().optional(),
-      items: z.array(cartItemSchema).optional(),
-      lot: lotSchema.optional(),
-    })
-    .refine(
-      async (data) => {
-        if (data.salesType === "1") {
-          return true;
-        } else {
-          return !(await MemberService.validateCustomer(data.purchaserID));
-        }
-      },
-      { message: "Purchaser ID is not customer or does not exists." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType !== "6" && data.salesType !== "7") {
-          // if this is not a booking sales, cannot set mail to purchaserId as true.
-          return !(data.isMailToPurchaserId === true);
-        } else {
-          return true;
-        }
-      },
-      { message: "Only booking related sales allow mail to purchaser ID option." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType === "5") {
-          return true;
-        } else {
-          return !(await MemberService.validateAgent(data.memberID));
-        }
-      },
-      { message: "This agent does not exists." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType === "3" || data.salesType === "4" || data.salesType === "7") {
-          return data.items;
-        }
-        return true;
-      },
-      { message: "Please insert some items" }
-    )
-    .refine(
-      async (data) => {
-        if (
-          data.salesType !== "1" &&
-          data.salesType !== "5" &&
-          data.salesType !== "3" &&
-          data.salesType !== "7" &&
-          data.salesType !== "4"
-        ) {
-          return !(await ProductService.validateUnitID(data.unitID || null));
-        }
-        return true;
-      },
-      { message: "Unit ID does not exists." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType === "3") {
-          if (data.bindUnitSalesID != null) {
-            return !(await SalesService.validateSalesID(data.bindUnitSalesID || null));
-          }
-        }
-        return true;
-      },
-      { message: "Bind Unit Sales ID does not exists." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType === "2" || data.salesType === "3") {
-          if (data.bindUnitBookingID != null) {
-            return await SalesService.validateBookingSalesID(data.bindUnitBookingID || null);
-          }
-        }
-        return true;
-      },
-      { message: "Bind Unit Booking ID does not exists." }
-    )
-    .refine(
-      async (data) => {
-        if (data.paymentType == "100") {
-          return data?.receipt != null;
-        }
-        return true;
-      },
-      { message: "Receipt Cannot be Empty Online Transfer Payment." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType === "5") {
-          return data?.paymentPurpose != null;
-        }
-        return true;
-      },
-      { message: "Payment Purpose Cannot be Empty for Misc Sales." }
-    )
-    .refine(
-      async (data) => {
-        if (data.salesType === "3") {
-          if (data.items != null && data.items.length > 0) {
-            for (let i = 0; i < data.items.length; i++) {
-              if (data.items[i].paymentDetails == null && data.items[i].isService) {
-                return false;
-              }
-            }
-            return true;
-          } else {
-            return false;
-          }
-        }
-        return true;
-      },
-      { message: "Payment Detail In Item Array Cannot be Empty for FSP Sales." }
-    )
-    .transform(async (data) => {
-      data.totalPrice = data.totalPrice == null ? 0 : data.totalPrice;
-      data.mailToPurchaserId = data.isMailToPurchaserId ? data.purchaserID : null;
-      data.unitPayable = 0;
-
-      switch (data.salesType) {
-        case "1":
-          data.paymentPurpose = "7"; //Register
-          data.purchaserID = null;
-          data.bookingExpiry = null;
-          break;
-        case "2":
-          data.paymentPurpose = "1"; //Downpayment
-          data.bookingExpiry = null;
-          break;
-        case "3":
-          data.paymentPurpose = "3"; //Service
-          data.bookingExpiry = null;
-          break;
-        case "4":
-          data.paymentPurpose = "4"; //Urn
-          data.bookingExpiry = null;
-          break;
-        case "5":
-          data.memberID = null; //MISC
-          break;
-        case "6":
-          data.paymentPurpose = "9"; //Booking
-          break;
-        case "7":
-          data.paymentPurpose = "9"; //Booking
-          break;
-        default: // Default to Inputted Payment Purpose for Misc Sales
-          break;
-      }
-
-      if (data.lot != null) {
-        data.lot.unitID = data.unitID;
-        const total = data.lot.unitPrice + data.lot.maintenanceFee;
-        const payable = total - data.lot.unitDiscount;
-        data.unitPayable += payable;
-        data.lot.loanDetails.firstInstallment =
-          payable -
-          data.lot.downpayment -
-          (data.lot.loanDetails.installmentMonth - 1) * data.lot.loanDetails.sumPerInstallment;
-        data.totalPrice += total;
-      }
-
-      if (data.items != null && data.items.length > 0) {
-        for (let i = 0; i < data.items.length; i++) {
-          if (data.salesType !== "7") {
-            data.totalPrice += data.items[i].totalPrice;
-          }
-          if (data.items[i].paymentDetails != null) {
-            data.items[i].paymentDetails.unitID = data.unitID;
-            const total = data.items[i].paymentDetails.unitPrice + data.items[i].paymentDetails.maintenanceFee;
-            const payable = total - data.items[i].paymentDetails.unitDiscount;
-            data.unitPayable += payable;
-            data.items[i].paymentDetails.loanDetails.firstInstallment =
-              payable -
-              data.items[i].paymentDetails.downpayment -
-              (data.items[i].paymentDetails.loanDetails.installmentMonth - 1) *
-                data.items[i].paymentDetails.loanDetails.sumPerInstallment;
-            if (data.bindUnitBookingID != null) {
-              const bookingSales = (await SalesService.getSalesBySalesID(data.bindUnitBookingID))[0];
-              if (data.items[i].paymentDetails != null) {
-                data.items[i].paymentDetails.bookingReceived = bookingSales.TotalPrice;
-              }
-            } else {
-              if (data.items[i].paymentDetails != null) {
-                data.items[i].paymentDetails.bookingReceived = 0;
-              }
-            }
-          }
-        }
-      }
-
-      if (data.bindUnitBookingID != null) {
-        const bookingSales = (await SalesService.getSalesBySalesID(data.bindUnitBookingID))[0];
-        data.totalPrice -= bookingSales.TotalPrice;
-        if (data.lot != null) {
-          data.lot.bookingReceived = bookingSales.TotalPrice;
-        }
-      } else {
-        if (data.lot != null) {
-          data.lot.bookingReceived = 0;
-        }
-      }
-
-      data.totalPV = 0;
-      return data;
-    })
+    status: z
+      .string()
+      .optional()
+      .transform(async () => "CCL"),
+    createdBy: z.string(),
+  })
 );
 
 class SalesController {
   static async InsertSales(req, res) {
     try {
-      const body = await insertSalesSchema.parseAsync(req.body);
+      req.body.CreatedBy = req.body?.CreatedBy || req.MemberID || "000001";
+      let tempsalesid;
       await sequelize.transaction(async (transaction) => {
-        await SalesService.insertSales(body, req, transaction);
+        tempsalesid = await SalesService.insertSales(req.body, req, transaction);
       });
       res.status(200).send({
         Success: true,
-        Data: { salesID: body.salesID },
-        Message: `${body.salesID} sales is successfully inserted`,
+        Data: { salesID: tempsalesid },
+        Message: `${tempsalesid} sales is successfully inserted`,
       });
     } catch (error) {
       console.error("Error:", error.message);
@@ -983,7 +686,7 @@ class SalesController {
     }
   }
 
-  static async ApproveRejectInstallment(req, res){
+  static async ApproveRejectInstallment(req, res) {
     try {
       let body = await approveRejectInstallmentSchema.parseAsync(req.body);
       body.createdBy = body.createdBy == null || body.createdBy === "" ? req.MemberID : body.createdBy;
@@ -1017,7 +720,7 @@ class SalesController {
     }
   }
 
-  static async GetPendingInstallmentPaymentList(req, res){
+  static async GetPendingInstallmentPaymentList(req, res) {
     try {
       const body = await pendingInstallmentFilterSchema.parseAsync(req.body);
       const result = await SalesService.getPendingInstallmentPaymentList(body);
@@ -1153,7 +856,7 @@ class SalesController {
     }
   }
 
-  static async CancelBookingSales(req, res){
+  static async CancelBookingSales(req, res) {
     try {
       let body = await cancelBookingSalesSchema.parseAsync(req.body);
       await sequelize.transaction(async (transaction) => {

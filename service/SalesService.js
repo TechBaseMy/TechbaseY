@@ -9,6 +9,7 @@ const moment = require("moment-timezone");
 const Constants = require("../util/Constant");
 const OSS = require("../lib/OSS");
 const { format } = require("date-fns-tz");
+const QueryHandler = require("../lib/Query/QueryHandler");
 
 class SalesService {
   static async validateRefundAmount(salesID) {
@@ -66,7 +67,7 @@ class SalesService {
     });
     return result[0]?.TransactionID === undefined || result[0]?.TransactionID === null;
   }
-  static async validateSalesInstallmentPayment(salesID, transactionID){
+  static async validateSalesInstallmentPayment(salesID, transactionID) {
     const query = `
     SELECT TransactionID FROM tbl_SalesPayment WITH (NOLOCK) 
     WHERE IsDeleted = 0 AND SalesId = :salesID 
@@ -97,7 +98,7 @@ class SalesService {
       isFirstSales: result.length === 0 ? false : result[0]?.AgentID == null,
     };
   }
-  static async checkIfSalesIsEligibleForInstallment(salesID){
+  static async checkIfSalesIsEligibleForInstallment(salesID) {
     const query = `
     SELECT sp.TransactionID
     FROM tbl_Sales s WITH (NOLOCK)
@@ -157,20 +158,19 @@ class SalesService {
     WHERE s.IsDeleted = 0 AND s.StatusX = 'P' AND s.SalesType <> '1'
     `;
 
-    if (data.dateFrom != null && data.dateFrom !== ""){
+    if (data.dateFrom != null && data.dateFrom !== "") {
       query += `
       AND sp.TransactionDate >= :DateFrom
       `;
       replacements.DateFrom = data.dateFrom;
     }
 
-    if (data.dateTo != null && data.dateTo !== ""){
+    if (data.dateTo != null && data.dateTo !== "") {
       query += `
       AND sp.TransactionDate <= >:DateTo
       `;
       replacements.DateTo = data.dateTo;
     }
-
 
     if (data.agentID != null && data.agentID !== "") {
       query += `
@@ -241,7 +241,7 @@ class SalesService {
     return { data: result, totalRows: totalCount[0].Total };
   }
 
-  static async getPendingInstallmentPaymentList(data){
+  static async getPendingInstallmentPaymentList(data) {
     const offset = (data.pageNumber - 1) * data.pageSize;
     const replacements = { offset: offset, pageSize: data.pageSize };
 
@@ -255,14 +255,14 @@ class SalesService {
     WHERE s.IsDeleted = 0 AND s.StatusX = 'A' AND s.SalesType IN (2, 3) 
     `;
 
-    if (data.dateFrom != null && data.dateFrom !== ""){
+    if (data.dateFrom != null && data.dateFrom !== "") {
       query += `
       AND sp.TransactionDate >= :DateFrom
       `;
       replacements.DateFrom = data.dateFrom;
     }
 
-    if (data.dateTo != null && data.dateTo !== ""){
+    if (data.dateTo != null && data.dateTo !== "") {
       query += `
       AND sp.TransactionDate <= >:DateTo
       `;
@@ -297,15 +297,14 @@ class SalesService {
       replacements.SalesType = data.salesType;
     }
 
-
-    if (data.transactionID != null && data.transactionID !== ""){
+    if (data.transactionID != null && data.transactionID !== "") {
       query += `
       AND sp.TransactionID = :TransactionID
       `;
       replacements.TransactionID = data.transactionID;
     }
 
-    if (data.salesID != null && data.salesID !== ""){
+    if (data.salesID != null && data.salesID !== "") {
       query += `
       AND s.SalesId = :SalesID
       `;
@@ -345,7 +344,7 @@ class SalesService {
     return { data: result, totalRows: totalCount[0].Total };
   }
 
-  static async getPaymentList(data){
+  static async getPaymentList(data) {
     const offset = (data.pageNumber - 1) * data.pageSize;
     const replacements = { offset: offset, pageSize: data.pageSize };
 
@@ -413,20 +412,20 @@ class SalesService {
     ) AS a WHERE 1 = 1
     `;
 
-    if (data.agentID != null && data.agentID !== ""){
+    if (data.agentID != null && data.agentID !== "") {
       query += `
         AND (a.AgentID = :AgentID OR a.AgentMemberID = :AgentID)
       `;
       replacements.AgentID = data.agentID;
     }
 
-    if (data.dateFrom != null && data.dateFrom !== ""){
+    if (data.dateFrom != null && data.dateFrom !== "") {
       query += `
         AND CONVERT(DATE, a.SalesDate) >= :DateFrom
       `;
       replacements.DateFrom = data.dateFrom;
     }
-    if (data.dateTo != null && data.dateTo !== ""){
+    if (data.dateTo != null && data.dateTo !== "") {
       query += `
         AND CONVERT(DATE, a.SalesDate) <= :DateTo
       `;
@@ -516,7 +515,7 @@ class SalesService {
     WHERE SP.IsDeleted = 0 
     `;
 
-    if (data.agentID != null && data.agentID !== ""){
+    if (data.agentID != null && data.agentID !== "") {
       query += `
         AND (MI2.AgentID = :AgentID OR MI2.MemberID = :AgentID)
       `;
@@ -770,7 +769,10 @@ class SalesService {
       replacements: replacements,
       type: Sequelize.QueryTypes.SELECT,
     });
-    return { data: result.map( row => ({...row, IntendedUsers: JSON.parse(row.IntendedUsers)})), totalRows: totalCount[0].Total };
+    return {
+      data: result.map((row) => ({ ...row, IntendedUsers: JSON.parse(row.IntendedUsers) })),
+      totalRows: totalCount[0].Total,
+    };
   }
 
   static async generateSalesID() {
@@ -841,7 +843,7 @@ class SalesService {
     });
   }
 
-  static async cancelBookingSales(data, req, t = null){
+  static async cancelBookingSales(data, req, t = null) {
     const query = `
 	    UPDATE [dbo].tbl_Sales SET StatusX = :status, UpdatedBy = :UpdatedBy, UpdatedAt = GETDATE() WHERE SalesId = :salesID; 
     `;
@@ -849,7 +851,7 @@ class SalesService {
       replacements: {
         salesID: data.salesID,
         status: data.status,
-        UpdatedBy: data.createdBy
+        UpdatedBy: data.createdBy,
       },
       type: Sequelize.QueryTypes.UPDATE,
       transaction: t,
@@ -1090,7 +1092,7 @@ class SalesService {
       },
     });
   }
-  static async approveRejectInstallmentPayments(data, req, t = null){
+  static async approveRejectInstallmentPayments(data, req, t = null) {
     let updateStatus = data.isApproved ? "APPROVE" : "REJECT";
     const query = `
     UPDATE tbl_SalesPayment 
@@ -1459,98 +1461,67 @@ class SalesService {
   }
 
   static async insertSales(data, req, t = null) {
-    const isUsingExistingTransaction = t != null;
-    const transaction = t == null ? await sequelize.transaction() : t;
-    data.transactionID = await this.generateTransactionID();
+    // data.transactionID = await this.generateTransactionID();
 
-    if (data.receipt != null && data.receipt !== "") {
-      const uploadRes = await OSS.UploadReceipt(data, req);
-      if (Object.keys(uploadRes).length > 0) {
-        data.receipt = uploadRes.receipt;
-      } else {
-        throw new Error("Upload failed for Receipt");
+    // if (data.receipt != null && data.receipt !== "") {
+    //   const uploadRes = await OSS.UploadReceipt(data, req);
+    //   if (Object.keys(uploadRes).length > 0) {
+    //     data.receipt = uploadRes.receipt;
+    //   } else {
+    //     throw new Error("Upload failed for Receipt");
+    //   }
+    // }
+    if (data?.ShippingState == null) {
+      throw new Error(`Shipping State Cannot Be Null`);
+    }
+    // Check Wallet Balance
+    if (data?.PaymentType == "1") {
+      const balance = await QueryHandler.executeQuery(7, data);
+      data.Price = 0;
+      data.PV = 0;
+      data.cart = await Promise.all(
+        data?.cart.map(async (item) => {
+          item.ShippingState = data.ShippingState;
+          const itemDetails = (await QueryHandler.executeQuery(46, item))[0];
+          item.CreatedBy = data.CreatedBy;
+          item.SinglePV = itemDetails.PV;
+          item.SinglePrice = itemDetails.Price;
+          item.SingleWeight = itemDetails.Weight;
+          data.Price += item.SinglePrice * item?.Quantity;
+          data.PV += item.SinglePV * item?.Quantity;
+          return item;
+        })
+      );
+
+      if (data.Price > balance) {
+        throw new Error(`Wallet Balance is Insufficient`);
       }
     }
 
-    switch (data.salesType) {
-      case "1":
-        // Code for handling sales type 1 (Registration)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblSalesDetails(data, req, transaction);
-        await this.insertTblSalesPayment(data, req, transaction);
-        break;
+    const isUsingExistingTransaction = t != null;
 
-      case "2":
-        // Code for handling sales type 2 (Unit Sales)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblUnitPODetails(data, req, transaction);
-        data.totalPrice = data.lot.downpayment;
-        const isFullyPaid =
-          data.lot.unitPrice + data.lot.maintenanceFee - data.lot.unitDiscount - data.lot.downpayment <= 0;
-        data.paymentPurpose = isFullyPaid ? "8" : data.paymentPurpose;
-        await this.insertTblSalesPayment(data, req, transaction);
-        await this.updateSalesActiveSalesID(data, req, transaction);
-        console.log("Handling sales type 2: Unit Sales");
-        break;
+    const transaction = t == null ? await sequelize.transaction() : t;
+    const tempSalesID = await QueryHandler.executeQuery(9, data, req, transaction);
+    data.TempSalesID = tempSalesID[0].SalesID;
+    data.cart = await Promise.all(
+      data?.cart.map(async (item) => {
+        item.TempSalesID = data.TempSalesID;
+        await QueryHandler.executeQuery(10, item, req, transaction);
+        return item;
+      })
+    );
+    await QueryHandler.executeQuery(41, data, req, transaction);
+    await QueryHandler.executeQuery(42, data, req, transaction);
 
-      case "3":
-        // Code for handling sales type 3 (FSP Sales)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblFSPPODetails(data, req, transaction);
-        await this.insertTblSalesDetails(data, req, transaction);
-        await this.insertTblSalesPayment(data, req, transaction);
-        console.log("Handling sales type 3: FSP Sales");
-        break;
+    await QueryHandler.executeQuery(43, data, req, transaction);
+    // Stock Deduction
+    // await QueryHandler.executeQuery(44, data, req, transaction);
+    await QueryHandler.executeQuery(45, data, req, transaction);
 
-      case "4":
-        // Code for handling sales type 4 (Merchandise Sales)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblSalesDetails(data, req, transaction);
-        await this.insertTblSalesPayment(data, req, transaction);
-        console.log("Handling sales type 4: Merchandise Sales");
-        break;
-
-      case "5":
-        // Code for handling sales type 5 (MISC Payment)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblSalesPayment(data, req, transaction);
-        console.log("Handling sales type 5: MISC Payment");
-        break;
-
-      case "6":
-        // Code for handling sales type 6 (Unit Booking)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblSalesPayment(data, req, transaction);
-        await this.updateSalesActiveBookingID({ bookingID: data.salesID, unitID: data.unitID }, req, transaction);
-        console.log("Handling sales type 6: Unit Booking");
-        break;
-
-      case "7":
-        // Code for handling sales type 7 (FSP Booking)
-        await this.insertTblSales(data, req, transaction);
-        await this.insertTblSalesDetails(data, req, transaction);
-        await this.insertTblSalesPayment(data, req, transaction);
-        console.log("Handling sales type 7: FSP Booking");
-        break;
-
-      default:
-        // Default case to handle unexpected sales type values
-        console.log("Unhandled sales type:", data.salesType);
-        break;
-    }
-    const query = `
-    EXEC dbo.SP_DeductStock_BySales @SALESID = :SalesID ;
-    `;
-    await sequelize.query(query, {
-      replacements: {
-        SalesID: data.salesID,
-      },
-      type: Sequelize.QueryTypes.INSERT,
-      transaction: transaction,
-    });
     if (!isUsingExistingTransaction) {
       await transaction.commit();
     }
+    return data.TempSalesID;
   }
 
   static async updateSalesPaymentReceipt(data, req, t = null) {
