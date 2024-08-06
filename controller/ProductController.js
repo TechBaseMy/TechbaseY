@@ -31,7 +31,7 @@ class ProductController {
     }
   }
 
-  static async CreateNewProductCategory(req, res){
+  static async CreateNewProductCategory(req, res) {
     try {
       const body = req.body;
       await ProductService.insertNewProductCategory(body, req);
@@ -67,7 +67,9 @@ class ProductController {
   static async GetFullProductDetail(req, res) {
     try {
       const body = req.body;
-      const result = await ProductService.getFullProductDetailsByProductCode(body.ProductCode);
+      const result = await ProductService.getFullProductDetailsByProductCode(
+        body.ProductCode
+      );
 
       res.status(200).send({
         Success: true,
@@ -107,6 +109,7 @@ class ProductController {
     } catch (error) {
       console.error("Error:", error.message);
       console.error("Stack Trace:", error.stack);
+      captureError(error, res);
     }
   }
 
@@ -121,13 +124,16 @@ class ProductController {
     } catch (error) {
       console.error("Error:", error.message);
       console.error("Stack Trace:", error.stack);
+      captureError(error, res);
     }
   }
 
-  static async GetSingleProductCategory(req, res){
+  static async GetSingleProductCategory(req, res) {
     try {
       const body = req.body;
-      const result = await ProductService.getSingleProductCategory(body.ProductCategory);
+      const result = await ProductService.getSingleProductCategory(
+        body.ProductCategory
+      );
       // Send the response
       res.status(200).send({
         Success: true,
@@ -136,14 +142,15 @@ class ProductController {
     } catch (error) {
       console.error("Error:", error.message);
       console.error("Stack Trace:", error.stack);
+      captureError(error, res);
     }
   }
 
-  static async UpdateProductBasic(req, res){
+  static async UpdateProductBasic(req, res) {
     try {
       const body = req.body;
       await ProductService.updateProduct(body, req);
-      
+
       res.status(200).send({
         Success: true,
         Data: `${body.ProductCode} product is successfully updated`,
@@ -155,7 +162,7 @@ class ProductController {
     }
   }
 
-  static async UpdateProductDisplay(req, res){
+  static async UpdateProductDisplay(req, res) {
     try {
       const body = req.body;
       await ProductService.updateProductDisplay(body, req);
@@ -171,7 +178,7 @@ class ProductController {
     }
   }
 
-  static async UpdateProductImage(req, res){
+  static async UpdateProductImage(req, res) {
     try {
       const body = req.body;
       await ProductService.updateProductImage(body, req);
@@ -187,12 +194,16 @@ class ProductController {
     }
   }
 
-  static async UpdateProductPricingByProductCode(req, res){
+  static async UpdateProductPricingByProductCode(req, res) {
     try {
       const body = req.body;
 
       await sequelize.transaction(async (transaction) => {
-        await ProductService.updateProductPricingByProductID(body, req, transaction);
+        await ProductService.updateProductPricingByProductID(
+          body,
+          req,
+          transaction
+        );
       });
 
       res.status(200).send({
@@ -206,12 +217,16 @@ class ProductController {
     }
   }
 
-  static async UpdateProductPricingForCertainCountry(req, res){
+  static async UpdateProductPricingForCertainCountry(req, res) {
     try {
       const body = req.body;
 
       await sequelize.transaction(async (transaction) => {
-        await ProductService.updateSingleProductPricingByCountry(body, req, transaction);
+        await ProductService.updateSingleProductPricingByCountry(
+          body,
+          req,
+          transaction
+        );
       });
 
       res.status(200).send({
@@ -225,7 +240,7 @@ class ProductController {
     }
   }
 
-  static async UpdateProductCategory(req, res){
+  static async UpdateProductCategory(req, res) {
     try {
       const body = req.body;
       await ProductService.updateProductCategory(body, req);
