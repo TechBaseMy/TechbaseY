@@ -27,7 +27,7 @@ class ProductService {
     const productPricing = await QueryHandler.executeQuery(30, {ProductID: productID});
 
     product.Language = productLanguage || [];
-    product.Display = productDisplay || [];
+    product.Display = productDisplay.map(row => row.DisplayType) || [];
     product.Image = productImage || [];
     product.Pricing = productPricing || [];
     product.Package = productPackage || [];
@@ -189,7 +189,7 @@ class ProductService {
             if (data.ProductImage.hasOwnProperty(imgIndex)) {
               // Prepare the image data for upload
               // if base64 string starts with data:, then it's a valid file base64
-              if (data.ProductImage[imgIndex].FileUrl.Contains("data:")){
+              if (data.ProductImage[imgIndex].FileUrl.includes("data:")){
                 const imageData = data.ProductImage[imgIndex].FileUrl;
                 const imageUploadBody = {
                   productCode: data.ProductCode,
@@ -243,7 +243,7 @@ class ProductService {
 
   static async updateProductImage(data, req){  
     data.ProductID = await this.getProductIDByProductCode(data.ProductCode);
-    await QueryHandler.executeQuery(23, data, req, t);
+    await QueryHandler.executeQuery(23, data, req);
 
     if (data.ProductImage != null && data.ProductImage.length > 0){
       try {
@@ -251,7 +251,7 @@ class ProductService {
           if (data.ProductImage.hasOwnProperty(imgIndex)) {
             // Prepare the image data for upload
             // if base64 string starts with data:, then it's a valid file base64
-            if (data.ProductImage[imgIndex].FileUrl.Contains("data:")){
+            if (data.ProductImage[imgIndex].FileUrl.includes("data:")){
               const imageData = data.ProductImage[imgIndex].FileUrl;
               const imageUploadBody = {
                 productCode: data.ProductCode,
@@ -264,7 +264,7 @@ class ProductService {
               if (Object.keys(uploadRes).length > 0) {
                   // Assign the returned OSS URL to the respective FileUrl
                   data.ProductImage[imgIndex].FileUrl = uploadRes.productImage;
-                  await this.insertTblProductImage(data, req, t);
+                  await this.insertTblProductImage(data, req);
               }
             }
             else {

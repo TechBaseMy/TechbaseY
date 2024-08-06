@@ -109,6 +109,7 @@ class ProductController {
     } catch (error) {
       console.error("Error:", error.message);
       console.error("Stack Trace:", error.stack);
+      captureError(error, res);
     }
   }
 
@@ -123,6 +124,7 @@ class ProductController {
     } catch (error) {
       console.error("Error:", error.message);
       console.error("Stack Trace:", error.stack);
+      captureError(error, res);
     }
   }
 
@@ -140,6 +142,7 @@ class ProductController {
     } catch (error) {
       console.error("Error:", error.message);
       console.error("Stack Trace:", error.stack);
+      captureError(error, res);
     }
   }
 
