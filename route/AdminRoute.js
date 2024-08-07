@@ -148,39 +148,8 @@ module.exports = function (app) {
     ProductController.UpdateProductCategory
   );
   //#endregion
-  //#region LOT CONTROLLER
-  // app.post(
-  //   "/lot/assignIntendedUserToUnit",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   LotController.AssignIntendedUserToUnit
-  // );
-  // app.post(
-  //   "/lot/uploadDeathCert",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   LotController.UploadDeathCertificateForLotIntendedUser
-  // );
-  // app.post(
-  //   "/lot/checkInIntendedUserToUnit",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   LotController.CheckInIntendedUserToUnit
-  // );
-  // app.post(
-  //   "/lot/removeIntendedUserToUnit",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   LotController.RemoveIntendedUserToUnit
-  // );
-  // app.post("/lot/getLotDetails", PrivateRoute([Constant.role_admin, Constant.role_agent]), LotController.GetLotDetails);
-  // app.post("/lot/editLotDetails", PrivateRoute(Constant.role_admin), LotController.EditLotDetails);
-  // app.post(
-  //   "/lot/getLotBatchWithCondition",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
-  //   LotController.GetLotBatchWithCondition
-  // );
-  // app.post(
-  //   "/lot/batchEditLotDetailsSimple",
-  //   PrivateRoute(Constant.role_admin),
-  //   LotController.BatchEditLotDetailsSimple
-  // );
+  //#region WALLET CONTROLLER
+  //
   //#endregion
   //#region FORM CONTROLLER
   // app.post("/form/getAddendum", PrivateRoute(Constant.role_admin), FormController.GetAddendum);

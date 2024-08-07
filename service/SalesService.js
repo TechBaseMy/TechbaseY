@@ -1476,13 +1476,13 @@ class SalesService {
     }
     // Check Wallet Balance
     if (data?.PaymentType == "1") {
-      const balance = await QueryHandler.executeQuery(7, data);
+      const balance = await QueryHandler.executeQuery('CW01', data);
       data.Price = 0;
       data.PV = 0;
       data.cart = await Promise.all(
         data?.cart.map(async (item) => {
           item.ShippingState = data.ShippingState;
-          const itemDetails = (await QueryHandler.executeQuery(46, item))[0];
+          const itemDetails = (await QueryHandler.executeQuery('PD01', item))[0];
           item.CreatedBy = data.CreatedBy;
           item.SinglePV = itemDetails.PV;
           item.SinglePrice = itemDetails.Price;
@@ -1501,22 +1501,21 @@ class SalesService {
     const isUsingExistingTransaction = t != null;
 
     const transaction = t == null ? await sequelize.transaction() : t;
-    const tempSalesID = await QueryHandler.executeQuery(9, data, req, transaction);
+    const tempSalesID = await QueryHandler.executeQuery('SL01', data, req, transaction);
     data.TempSalesID = tempSalesID[0].SalesID;
     data.cart = await Promise.all(
       data?.cart.map(async (item) => {
         item.TempSalesID = data.TempSalesID;
-        await QueryHandler.executeQuery(10, item, req, transaction);
+        await QueryHandler.executeQuery('SL02', item, req, transaction);
         return item;
       })
     );
-    await QueryHandler.executeQuery(41, data, req, transaction);
-    await QueryHandler.executeQuery(42, data, req, transaction);
-
-    await QueryHandler.executeQuery(43, data, req, transaction);
+    await QueryHandler.executeQuery('SL03', data, req, transaction);
+    await QueryHandler.executeQuery('SL04', data, req, transaction);
+    await QueryHandler.executeQuery('SL05', data, req, transaction);
     // Stock Deduction
-    // await QueryHandler.executeQuery(44, data, req, transaction);
-    await QueryHandler.executeQuery(45, data, req, transaction);
+    // await QueryHandler.executeQuery('SL06', data, req, transaction);
+    await QueryHandler.executeQuery('SL07', data, req, transaction);
 
     if (!isUsingExistingTransaction) {
       await transaction.commit();

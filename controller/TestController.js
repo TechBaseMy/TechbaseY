@@ -114,12 +114,12 @@ class TestController {
 
   static async test12345(req, res) {
     try {
-      // const body = { queryID: "1", memberID: "000001" };
-      const body = { queryID: "3", loginRole: "C" };
-      // const body = { queryID: "3" };
+      // const body = { queryCode: "Q001", memberID: "000001" };
+      const body = { queryCode: "LG01", loginRole: "C" };
+      // const body = { queryCode: "LG01" };
 
-      const { queryID, ...parameters } = body;
-      let isSuccess = await QueryHandler.executeQuery(queryID, parameters);
+      const { queryCode, ...parameters } = body;
+      let isSuccess = await QueryHandler.executeQuery(queryCode, parameters);
 
       res.status(200).send({
         Success: isSuccess,

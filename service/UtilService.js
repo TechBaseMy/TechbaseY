@@ -8,7 +8,7 @@ const Constants = require("../util/Constant");
 
 class UtilService {
   static async getParameterValue(language = 'EN', category) {
-    return (await QueryHandler.executeQuery(39, {Language: language, ParameterCategory: category}));
+    return (await QueryHandler.executeQuery('Q003', {Language: language, ParameterCategory: category}));
   }
 }
 module.exports = UtilService;

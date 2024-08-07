@@ -26,7 +26,7 @@ class UtilController {
   static async Execute(req, res) {
     try {
       req.body.Password = req.body?.Password != null ? encrypt(req.body?.Password) : null;
-      let result = await QueryHandler.executeQuery(req.body.queryID, req.body);
+      let result = await QueryHandler.executeQuery(req.body.queryCode, req.body);
       res.status(200).send({
         Success: result != null,
         Data: result == null ? "Invalid" : result,

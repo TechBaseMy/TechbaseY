@@ -8,23 +8,23 @@ const Log = require("../util/Log");
 
 class ProductService {
   static async getFullProductInfoByProductCode(productCode) {
-    return (await QueryHandler.executeQuery(38, {ProductCode: productCode}));
+    return (await QueryHandler.executeQuery('PG010', {ProductCode: productCode}));
   }
   static async getProductImageByProductID(productID){
-    return (await QueryHandler.executeQuery(29, {ProductID: productID}));
+    return (await QueryHandler.executeQuery('PG006', {ProductID: productID}));
   }
   static async getSingleProductCategory(categoryID){
-    return (await QueryHandler.executeQuery(37, {ProductCategory: categoryID}))?.[0];
+    return (await QueryHandler.executeQuery('PCA005', {ProductCategory: categoryID}))?.[0];
   }
   static async getFullProductDetailsByProductCode(productCode){
     const productID = await this.getProductIDByProductCode(productCode);
 
-    let product = (await QueryHandler.executeQuery(25, {ProductID: productID}))[0];
-    const productLanguage = await QueryHandler.executeQuery(26, {ProductID: productID});
-    const productPackage = await QueryHandler.executeQuery(27, {ProductID: productID});
-    const productDisplay = await QueryHandler.executeQuery(28, {ProductID: productID});
+    let product = (await QueryHandler.executeQuery('PG002', {ProductID: productID}))[0];
+    const productLanguage = await QueryHandler.executeQuery('PG003', {ProductID: productID});
+    const productPackage = await QueryHandler.executeQuery('PG004', {ProductID: productID});
+    const productDisplay = await QueryHandler.executeQuery('PG005', {ProductID: productID});
     const productImage = await this.getProductImageByProductID(productID);
-    const productPricing = await QueryHandler.executeQuery(30, {ProductID: productID});
+    const productPricing = await QueryHandler.executeQuery('PG007', {ProductID: productID});
 
     product.Language = productLanguage || [];
     product.Display = productDisplay.map(row => row.DisplayType) || [];
@@ -44,33 +44,30 @@ class ProductService {
     return product;
   }
   static async getProductIDByProductCode(productCode) {
-    return (await QueryHandler.executeQuery(19, {ProductCode: productCode}))?.[0]?.ID;
+    return (await QueryHandler.executeQuery('PG008', {ProductCode: productCode}))?.[0]?.ID;
   }
   static async getProductDisplaysByProductID(productID){
-    return (await QueryHandler.executeQuery(28, {ProductID: productID}));
-  }
-  static async getProductImageByProductID(productID){
-    return (await QueryHandler.executeQuery(29, {ProductID: productID}));
+    return (await QueryHandler.executeQuery('PG009', {ProductID: productID}));
   }
   static async getValidProductCategoryList(){
-    return (await QueryHandler.executeQuery(34, []));
+    return (await QueryHandler.executeQuery('PCA002', []));
   }
   static async getFullProductCategoryList(){
-    return (await QueryHandler.executeQuery(35, []));
+    return (await QueryHandler.executeQuery('PCA003', []));
   }
   static async getProductList(body) {
-    const result = await QueryHandler.executeQuery(24, body);
-    const totalCount = await QueryHandler.executeQuery(40, body);
+    const result = await QueryHandler.executeQuery('PL001', body);
+    const totalCount = await QueryHandler.executeQuery('PL002', body);
 
     return { data: result, totalRows: totalCount[0].Total };
   }
   static async insertTblProduct(body, req, t = null) {
-    return (await QueryHandler.executeQuery(11, body, req, t))?.[0]?.RES;
+    return (await QueryHandler.executeQuery('PC001', body, req, t))?.[0]?.RES;
   }
   static async insertTblProductDisplay(body, req, t = null) {
     for (const displayType of body.ProductDisplayType) {
       await QueryHandler.executeQuery(
-        15, 
+        'PC004', 
         {
           ProductID: body.ProductID,
           DisplayType: displayType,
@@ -83,7 +80,7 @@ class ProductService {
   static async insertTblProductImage(body, req, t = null) {
     for (const productImage of body.ProductImage) {
       await QueryHandler.executeQuery(
-        12, 
+        'PC002', 
         {
           ProductID: body.ProductID,
           Sort: productImage.Sort,
@@ -98,7 +95,7 @@ class ProductService {
     for (const pack of body.ProductPackage) {
       const productID = await this.getProductIDByProductCode(pack.ProductCode);
       await QueryHandler.executeQuery(
-        17, 
+        'PC006', 
         {
           PackageID: body.ProductID,
           ProductID: productID,
@@ -113,7 +110,7 @@ class ProductService {
   static async insertTblProductLanguage(body, req, t = null){
     for (const language of body.ProductLanguage) {
       await QueryHandler.executeQuery(
-        16, 
+        'PC005', 
         {
           ProductID: body.ProductID,
           ProductName: language.ProductName,
@@ -128,7 +125,7 @@ class ProductService {
   static async insertTblProductPricing(body, req, t = null){
     for (const pricing of body.ProductPricing) {
       await QueryHandler.executeQuery(
-        13, 
+        'PC003', 
         {
           ProductID: body.ProductID,
           Country: pricing.Country,
@@ -144,7 +141,7 @@ class ProductService {
       );
 
       await QueryHandler.executeQuery(
-        14, 
+        'PC003A', 
         {
           ProductID: body.ProductID,
           Country: pricing.Country,
@@ -222,17 +219,17 @@ class ProductService {
   }
 
   static async insertNewProductCategory(data, req){
-    await QueryHandler.executeQuery(33, data, req);
+    await QueryHandler.executeQuery('PCA001', data, req);
   }
 
   static async updateProduct(data, req){
-    await QueryHandler.executeQuery(18, data, req);
+    await QueryHandler.executeQuery('PU001', data, req);
   }
 
   static async updateProductDisplay(data, req, t = null){
     data.ProductID = await this.getProductIDByProductCode(data.ProductCode);
 
-    await QueryHandler.executeQuery(22, data, req, t);
+    await QueryHandler.executeQuery('PU004', data, req, t);
 
     if (data.ProductDisplayType != null && data.ProductDisplayType.length > 0){
       if (Array.isArray(data.ProductDisplayType) && data.ProductDisplayType.length > 0){
@@ -243,7 +240,7 @@ class ProductService {
 
   static async updateProductImage(data, req){  
     data.ProductID = await this.getProductIDByProductCode(data.ProductCode);
-    await QueryHandler.executeQuery(23, data, req);
+    await QueryHandler.executeQuery('PU005', data, req);
 
     if (data.ProductImage != null && data.ProductImage.length > 0){
       try {
@@ -284,7 +281,7 @@ class ProductService {
   static async updateProductPricingByProductID(data, req, t = null){
     data.ProductID = await this.getProductIDByProductCode(data.ProductCode);
 
-    await QueryHandler.executeQuery(20, data, req, t);
+    await QueryHandler.executeQuery('PU002', data, req, t);
 
     if (data.ProductPricing == null || data.ProductPricing.length < 0){
       throw new Error("Product Pricing request body cannot be empty!");
@@ -298,11 +295,11 @@ class ProductService {
 
   static async updateSingleProductPricingByCountry(data, req, t = null){
     data.ProductID = await this.getProductIDByProductCode(data.ProductCode);
-    await QueryHandler.executeQuery(21, data, req, t);
+    await QueryHandler.executeQuery('PU003', data, req, t);
   }
 
   static async updateProductCategory(data, req){
-    await QueryHandler.executeQuery(36, data, req);
+    await QueryHandler.executeQuery('PCA004', data, req);
   }
 }
 module.exports = ProductService;
