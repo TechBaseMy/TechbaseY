@@ -101,13 +101,8 @@ class UtilController {
 
   static async ViewBankList(req, res) {
     try {
-      let query = `
-        SELECT * FROM tbl_banks WITH (NOLOCK) WHERE countryBind = 127
-      `;
-      let result = await sequelize.query(query, {
-        replacements: {},
-        type: Sequelize.QueryTypes.SELECT,
-      });
+      const body = req.body;
+      const result = await UtilService.getBankLists(body.Nationality);
       res.status(200).send({
         Success: true,
         Data: result,

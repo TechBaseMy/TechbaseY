@@ -8,6 +8,8 @@ const SalesController = require("../controller/SalesController");
 const ProductController = require("../controller/ProductController");
 const LotController = require("../controller/LotController");
 const AnnouncementController = require("../controller/AnnouncementController");
+const WalletController = require("../controller/WalletController");
+const SettingController = require("../controller/SettingController");
 
 module.exports = function (app) {
   //#region USER CONTROLLER
@@ -20,6 +22,7 @@ module.exports = function (app) {
   app.post("/forgetPasswordChange", MemberController.ForgetPasswordChange);
   app.post("/member/getMemberName", MemberController.GetMemberName);
   app.post("/member/insertMember", MemberController.InsertMember);
+  app.post("/member/getMemberDetail",MemberController.GetMemberDetail);
   //#endregion
 
   //#region PRODUCT CONTROLLER
@@ -33,7 +36,7 @@ module.exports = function (app) {
   app.post("/util/getParameterValue", UtilController.GetParameterValue);
   app.get("/util/viewCountryList", UtilController.ViewCountryList);
   app.get("/util/viewStateList", UtilController.ViewStateList);
-  app.get("/util/viewBankList", UtilController.ViewBankList);
+  app.post("/util/viewBankList", UtilController.ViewBankList);
   app.get("/util/getRegistrationFees", UtilController.GetRegistrationFees);
   app.get("/util/onlineStatusCheck", UtilController.OnlineStatusCheck);
   //#endregion
@@ -41,6 +44,24 @@ module.exports = function (app) {
   //#region ANNOUNCEMENT CONTROLLER
   app.post("/announcement/getAnnouncementDetails", AnnouncementController.GetAnnouncementDetails);
   app.post("/announcement/getAnnouncementList", AnnouncementController.GetAnnouncementList);
+  //#endregion
+
+  //#region WALLET CONTROLLER
+  app.post("/wallet/getMemberWalletBalance", WalletController.GetMemberWalletBalance);
+  app.post("/wallet/getWalletBalanceList", WalletController.GetWalletBalanceList);
+  app.post("/wallet/getWalletStatement", WalletController.GetWalletStatement);
+  app.post("/wallet/getConvertWalletList", WalletController.GetConvertWalletList);
+  app.post("/wallet/getWalletReloadList", WalletController.GetWalletReloadList);
+  app.post("/wallet/getWalletWithdrawalList", WalletController.GetWalletWithdrawalList);
+  app.post("/wallet/getWalletTransferList", WalletController.GetWalletTransferList);
+  app.post("/wallet/convertWallet", WalletController.ConvertWallet);
+  app.post("/wallet/reloadWallet", WalletController.ReloadWallet);
+  app.post("/wallet/withdrawWallet", WalletController.WithdrawWallet);
+  app.post("/wallet/transferWallet", WalletController.TransferWallet);
+  //#endregion
+
+  //#region SETTING CONTROLLER
+  app.post("/wallet/getWalletConversionRate", SettingController.GetWalletConversionRate);
   //#endregion
 
   app.post("/test/test", TestController.encrypt);

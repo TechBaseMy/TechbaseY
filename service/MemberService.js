@@ -2,6 +2,9 @@ const Models = require("../models");
 const sequelize = Models.sequelize;
 const Sequelize = Models.Sequelize;
 const Log = require("../util/Log");
+const _ = require("lodash");
+const { encrypt } = require("../lib/Encryptor");
+const QueryHandler = require("../lib/Query/QueryHandler");
 
 class MemberService {
   static async validateMemberID(memberID) {
@@ -37,16 +40,11 @@ class MemberService {
     });
     return result[0]?.MemberID === undefined || result[0]?.MemberID === null;
   }
-  static async validateDownline(memberID, searchID){
-    const query = `
-      SELECT [dbo].[DEMO_CheckValidSponsorLine](:MemberID, :SearchID) AS 'RES';
-    `;
-
-    const result = await sequelize.query(query, {
-      replacements: { MemberID: memberID, SearchID: searchID },
-      type: Sequelize.QueryTypes.SELECT,
-    });
-    return result[0]?.RES === "1";
+  static async validateDownline(MemberID, SearchID){
+    return (await QueryHandler.executeQuery('Q005', {MemberID, SearchID}))?.[0]?.Result === 1;
+  }
+  static async validateSecurityPin(MemberID, SecurityPin){
+    return (await QueryHandler.executeQuery('Q004', {MemberID: MemberID, SecurityPin: encrypt(SecurityPin)}))?.[0]?.Result === 1;
   }
   static async getUserRole(memberID) {
     const query = `
@@ -62,34 +60,9 @@ class MemberService {
     });
     return result[0]?.LoginRole;
   }
-  static async findMemberByMemberID(memberID) {
-    const query = `
-    SELECT 
-      m.[MemberId], ISNULL(m.[AgentID], '-') AS 'AgentID', m.[Username], m.[FirstName], m.[LastName], m.Fullname, ISNULL(m1.[MemberId], '-') AS 'SponsorID', ISNULL(m1.[Fullname], '-') AS 'SponsorName'
-      , m.[Ranking], r.[RankName] AS 'RankName', CONVERT(VARCHAR, m.[SignUpdate], 120) AS 'SignUpDate', ISNULL(m.[Email], '-') AS 'Email',  m.[MobileCode], m.[Mobile]
-      , m.[IC_Type] AS 'IdentityTypeValue', ISNULL(p1.[ParameterName], '-') AS 'IdentityTypeName', m.[IC], ISNULL(m.[Gender], '-') AS 'Gender', ISNULL(CONVERT(VARCHAR, m.[DOB], 23), '-') AS 'DOB', ISNULL(m.[Nationality], '-') AS 'Nationality', ISNULL(c1.[Country_Name], '-') AS 'NationalityName'
-      , ISNULL(m.[MaritalStatus], '-') AS 'MaritalStatus', ISNULL(p2.ParameterName, '-') AS 'MaritalStatusName', ISNULL(m.[Religion], '-') AS 'Religion'
-      , m.[ResidentialAddress], ISNULL(m.[ResidentialAddress2], '-') AS 'ResidentialAddress2', ISNULL(m.[ResidentialAddress3], '-') AS 'ResidentialAddress3'
-      , ISNULL(m.[ResidentialCity], '-') AS 'ResidentialCity', ISNULL(m.[ResidentialState], '-') AS 'ResidentialState', ISNULL(s.State_Name, '-') AS 'ResidentialStateName', ISNULL(m.[ResidentialPostCode], '-') AS 'ResidentialPostCode', m.[ResidentialCountry], ISNULL(c2.[Country_Name], '-') AS 'ResidentialCountryName'
-      , m.[Bank], ISNULL(m.[BankName], '-') AS 'BankName', ISNULL(m.[BankBranch], '-') AS 'BankBranch', ISNULL(m.[BankAccountNo], '-') AS 'BankAccountNo', m.[BankAccountHolder], l.loginRole AS 'Role'
-    FROM tbl_memberInfo m WITH (NOLOCK) 
-    LEFT JOIN tbl_Login L WITH (NOLOCK) ON m.Username = L.loginUsername 
-    LEFT JOIN tbl_MemberInfo m1 WITH (NOLOCK) ON m1.IsDeleted = 0 AND m1.MemberID = m.SponsorID
-    LEFT JOIN tbl_Parameter p1 WITH (NOLOCK) ON p1.Category = 'IdentityType' AND p1.ParameterValue = m.IC_Type
-    LEFT JOIN tbl_Parameter p2 WITH (NOLOCK) ON p2.Category = 'Marriage' AND p2.ParameterValue = m.MaritalStatus
-    LEFT JOIN tbl_Country c1 WITH (NOLOCK) ON c1.IsDeleted = 0 AND c1.Id = m.Nationality
-    LEFT JOIN tbl_Country c2 WITH (NOLOCK) ON c1.IsDeleted = 0 AND c2.Id = m.ResidentialCountry
-    LEFT JOIN tbl_State s WITH (NOLOCK) ON s.IsDeleted = 0 AND s.Id = m.ResidentialState AND s.State_Country = m.ResidentialCountry
-    LEFT JOIN tbl_Rank r WITH (NOLOCK) ON r.IsDeleted = 0 AND r.Ranking = m.Ranking
-    WHERE m.IsDeleted = 0 AND m.MemberID = :memberID
-    `;
-    const result = await sequelize.query(query, {
-      replacements: { memberID: memberID },
-      type: Sequelize.QueryTypes.SELECT,
-    });
-    return result[0];
+  static async findMemberByMemberID(MemberID) {
+    return (await QueryHandler.executeQuery('M002', {MemberID}))?.[0];
   }
-
   static async findMembers(body) {
     const offset = (body.pageNumber - 1) * body.pageSize;
     const replacements = { offset: offset, pageSize: body.pageSize };

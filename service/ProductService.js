@@ -7,24 +7,24 @@ const OSS = require("../lib/OSS");
 const Log = require("../util/Log");
 
 class ProductService {
-  static async getFullProductInfoByProductCode(productCode) {
-    return (await QueryHandler.executeQuery('PG010', {ProductCode: productCode}));
+  static async getFullProductInfoByProductCode(ProductCode) {
+    return (await QueryHandler.executeQuery('PG010', {ProductCode}));
   }
-  static async getProductImageByProductID(productID){
-    return (await QueryHandler.executeQuery('PG006', {ProductID: productID}));
+  static async getProductImageByProductID(ProductID){
+    return (await QueryHandler.executeQuery('PG006', {ProductID}));
   }
-  static async getSingleProductCategory(categoryID){
-    return (await QueryHandler.executeQuery('PCA005', {ProductCategory: categoryID}))?.[0];
+  static async getSingleProductCategory(ProductCategory){
+    return (await QueryHandler.executeQuery('PCA005', {ProductCategory}))?.[0];
   }
   static async getFullProductDetailsByProductCode(productCode){
-    const productID = await this.getProductIDByProductCode(productCode);
+    const ProductID = await this.getProductIDByProductCode(productCode);
 
-    let product = (await QueryHandler.executeQuery('PG002', {ProductID: productID}))[0];
-    const productLanguage = await QueryHandler.executeQuery('PG003', {ProductID: productID});
-    const productPackage = await QueryHandler.executeQuery('PG004', {ProductID: productID});
-    const productDisplay = await QueryHandler.executeQuery('PG005', {ProductID: productID});
-    const productImage = await this.getProductImageByProductID(productID);
-    const productPricing = await QueryHandler.executeQuery('PG007', {ProductID: productID});
+    let product = (await QueryHandler.executeQuery('PG002', {ProductID}))[0];
+    const productLanguage = await QueryHandler.executeQuery('PG003', {ProductID});
+    const productPackage = await QueryHandler.executeQuery('PG004', {ProductID});
+    const productDisplay = await QueryHandler.executeQuery('PG005', {ProductID});
+    const productImage = await this.getProductImageByProductID(ProductID);
+    const productPricing = await QueryHandler.executeQuery('PG007', {ProductID});
 
     product.Language = productLanguage || [];
     product.Display = productDisplay.map(row => row.DisplayType) || [];
@@ -43,11 +43,11 @@ class ProductService {
 
     return product;
   }
-  static async getProductIDByProductCode(productCode) {
-    return (await QueryHandler.executeQuery('PG008', {ProductCode: productCode}))?.[0]?.ID;
+  static async getProductIDByProductCode(ProductCode) {
+    return (await QueryHandler.executeQuery('PG008', {productCode}))?.[0]?.ID;
   }
-  static async getProductDisplaysByProductID(productID){
-    return (await QueryHandler.executeQuery('PG009', {ProductID: productID}));
+  static async getProductDisplaysByProductID(ProductID){
+    return (await QueryHandler.executeQuery('PG009', {ProductID}));
   }
   static async getValidProductCategoryList(){
     return (await QueryHandler.executeQuery('PCA002', []));

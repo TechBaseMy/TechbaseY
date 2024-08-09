@@ -9,22 +9,24 @@ const ProductController = require("../controller/ProductController");
 const LotController = require("../controller/LotController");
 const FormController = require("../controller/FormController");
 const AnnouncementController = require("../controller/AnnouncementController");
+const WalletController = require("../controller/WalletController");
+const SettingController = require("../controller/SettingController");
 
 module.exports = function (app) {
   //#region SALES CONTROLLER
   app.post(
     "/sales/insertSales",
-    // PrivateRoute([Constant.role_admin, Constant.role_agent]),
+    // PrivateRoute([Constant.role_admin, Constant.role_member]),
     SalesController.InsertSales
   );
   // app.post(
   //   "/sales/insertInstallmentPayment",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.InsertInstallmentPayment
   // );
   // app.post(
   //   "/sales/insertRefund",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.InsertRefund
   // );
   // app.post("/sales/approveRejectSales", PrivateRoute(Constant.role_admin), SalesController.ApproveRejectSales);
@@ -40,29 +42,29 @@ module.exports = function (app) {
   //   PrivateRoute(Constant.role_admin),
   //   SalesController.GetPendingInstallmentPaymentList
   // );
-  // app.post("/sales/getTransactionHistory", PrivateRoute([Constant.role_admin, Constant.role_agent]), SalesController.GetTransactionHistory);
+  // app.post("/sales/getTransactionHistory", PrivateRoute([Constant.role_admin, Constant.role_member]), SalesController.GetTransactionHistory);
   // app.post("/sales/getPaymentList",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.GetPaymentList);
   // app.post("/sales/reuploadPaymentReceipt", PrivateRoute(Constant.role_admin), SalesController.ReuploadPaymentReceipt);
   // app.post(
   //   "/sales/getOrderDetails",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.GetOrderDetails
   // );
   // app.post(
   //   "/sales/getOrderList",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.GetOrderList
   // );
   // app.post(
   //   "/sales/addAuthorizedRepresentative",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.AddAuthorizedRepresentative
   // );
   // app.post(
   //   "/sales/cancelBookingSales",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   SalesController.CancelBookingSales
   // );
   //#endregion
@@ -71,12 +73,12 @@ module.exports = function (app) {
   // app.post("/member/toggleMemberKYC", PrivateRoute(Constant.role_admin), MemberController.ToggleMemberKYC);
   // app.post(
   //   "/changePassword",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   MemberController.ChangePassword
   // );
   // app.post(
   //   "/member/getMemberDetail",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   MemberController.GetMemberDetail
   // );
   // app.post("/member/getMemberName", MemberController.GetMemberName);
@@ -92,7 +94,7 @@ module.exports = function (app) {
   // );
   // app.post(
   //   "/member/SponsorTree",
-  //   PrivateRoute([Constant.role_admin, Constant.role_agent]),
+  //   PrivateRoute([Constant.role_admin, Constant.role_member]),
   //   MemberController.GetSponsorTree
   // );
   //#endregion
@@ -149,7 +151,40 @@ module.exports = function (app) {
   );
   //#endregion
   //#region WALLET CONTROLLER
-  //
+  app.post("/wallet/processWalletReloadRequest", 
+    //PrivateRoute(Constant.role_admin),
+    WalletController.ProcessWalletReloadRequest
+  );
+  app.post("/wallet/processWithdrawWalletRequest", 
+    //PrivateRoute(Constant.role_admin),
+    WalletController.ProcessWithdrawWalletRequest
+  );
+  //#endregion
+  //#region SETTING CONTROLLER
+  app.get("/setting/getAllWalletPermissionList", 
+    //PrivateRoute(Constant.role_admin),
+    SettingController.GetAllWalletPermissionList
+  );
+  app.post("/setting/getMemberLockedWalletPermission", 
+    //PrivateRoute(Constant.role_admin),
+    SettingController.GetMemberLockedWalletPermission
+  );
+  app.get("/setting/getWalletConversionRateList", 
+    //PrivateRoute(Constant.role_admin),
+    SettingController.GetWalletConversionRateList
+  );
+  app.post("/setting/updateWalletMethodPermission", 
+    //PrivateRoute(Constant.role_admin),
+    SettingController.UpdateWalletMethodPermission
+  );
+  app.post("/setting/updateMemberWalletMethodPermission", 
+    //PrivateRoute(Constant.role_admin),
+    SettingController.UpdateMemberWalletMethodPermission
+  );
+  app.post("/setting/updateSingleWalletConversionRate", 
+    //PrivateRoute(Constant.role_admin),
+    SettingController.UpdateSingleWalletConversionRate
+  );
   //#endregion
   //#region FORM CONTROLLER
   // app.post("/form/getAddendum", PrivateRoute(Constant.role_admin), FormController.GetAddendum);
